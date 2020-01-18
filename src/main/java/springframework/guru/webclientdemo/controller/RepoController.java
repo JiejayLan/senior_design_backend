@@ -1,8 +1,6 @@
 package springframework.guru.webclientdemo.controller;
-import org.springframework.http.HttpStatus;
-import org.springframework.web.client.RestTemplate;
-import springframework.guru.webclientdemo.domain.Github;
-import springframework.guru.webclientdemo.service.GitHubClientEventService;
+import springframework.guru.webclientdemo.domain.GitLab;
+import springframework.guru.webclientdemo.service.RepoClientEventService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,16 +12,16 @@ import org.springframework.web.reactive.function.client.WebClientResponseExcepti
 @RequestMapping("/api/v1")
 public class RepoController {
     private static final Logger logger = LoggerFactory.getLogger(RepoController.class);
-    private GitHubClientEventService gitHubClientEventService;
+    private RepoClientEventService repoClientEventService;
 
     @Autowired
-    public RepoController(GitHubClientEventService gitHubClientEventService){
-        this.gitHubClientEventService=gitHubClientEventService;
+    public RepoController(RepoClientEventService repoClientEventService){
+        this.repoClientEventService = repoClientEventService;
     }
 
-    @GetMapping("/github")
-    public ResponseEntity<Github> getGithubRepo(@RequestParam String q) {
-        return gitHubClientEventService.getGithubRepo(q);
+    @GetMapping("/search")
+    public ResponseEntity<GitLab[]> getGithubRepo(@RequestParam String q) {
+        return repoClientEventService.getGitLabRepo(q);
     }
 
     @ExceptionHandler(WebClientResponseException.class)

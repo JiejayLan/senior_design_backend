@@ -1,31 +1,26 @@
 package springframework.guru.webclientdemo.service;
-
-import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-import org.springframework.web.reactive.function.client.WebClient;
-import reactor.core.publisher.Mono;
 import springframework.guru.webclientdemo.domain.Github;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.client.RestTemplate;
 
 @Service
 public class GitHubClientEventServiceImpl implements GitHubClientEventService{
 
-    private final WebClient webClient;
-    private static final String OMDB_MIME_TYPE = "application/json";
-    private static final String OMDB_API_BASE_URL = "https://api.github.com/search/repositories?q=tetris+language:assembly&sort=stars&order=desc";
-    private static final String USER_AGENT = "Spring 5 WebClient";
+    private static final String BASE_URL = "https://api.github.com/search/repositories\"";
+
 
     public GitHubClientEventServiceImpl() {
-        this.webClient = WebClient.builder()
-                .baseUrl(OMDB_API_BASE_URL)
-                .defaultHeader(HttpHeaders.CONTENT_TYPE, OMDB_MIME_TYPE)
-                .defaultHeader(HttpHeaders.USER_AGENT, USER_AGENT)
-                .build();
+
     }
 
     @Override
-    public Mono<Github> getGithubRepo() {
-        return webClient.get()
-                .retrieve()
-                .bodyToMono(Github.class);
+    public ResponseEntity<Github> getGithubRepo(String q) {
+
+        RestTemplate restTemplate = new RestTemplate();
+        Github github = restTemplate.getForObject(BASE_URL +"?q="+q+"&sort=stars&order=desc", Github.class);
+
+        return  new ResponseEntity<>(github, HttpStatus.OK);
     }
 }

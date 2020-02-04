@@ -10,13 +10,13 @@ public class GithubItem {
     @JsonProperty("full_name")
     private String full_name;
     @JsonProperty("star_count")
-    private String star_count;
+    private int star_count;
 
-    public String getStar_count() {
+    public int getStar_count() {
         return star_count;
     }
 
-    public void setStar_count(String star_count) {
+    public void setStar_count(int star_count) {
         this.star_count = star_count;
     }
 

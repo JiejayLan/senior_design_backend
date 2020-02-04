@@ -2,7 +2,7 @@ package springframework.guru.webclientdemo.domain;
 
 public class Repo {
 
-    public Repo(int watchers_count, String full_name, String star_count, String language) {
+    public Repo(int watchers_count, int star_count,String full_name,  String language) {
         this.watchers_count = watchers_count;
         this.full_name = full_name;
         this.star_count = star_count;
@@ -11,7 +11,7 @@ public class Repo {
 
     private int watchers_count;
     private String full_name;
-    private String star_count;
+    private int star_count;
     private  String language;
 
     public int getWatchers_count() {
@@ -38,11 +38,11 @@ public class Repo {
         this.full_name = full_name;
     }
 
-    public String getStar_count() {
+    public int getStar_count() {
         return star_count;
     }
 
-    public void setStar_count(String star_count) {
+    public void setStar_count(int star_count) {
         this.star_count = star_count;
     }
 

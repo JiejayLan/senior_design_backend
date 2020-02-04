@@ -1,5 +1,6 @@
 package springframework.guru.webclientdemo.controller;
-import springframework.guru.webclientdemo.domain.GitLab;
+import org.springframework.http.HttpStatus;
+import springframework.guru.webclientdemo.domain.Repo;
 import springframework.guru.webclientdemo.service.RepoClientEventService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,8 +21,9 @@ public class RepoController {
     }
 
     @GetMapping("/search")
-    public ResponseEntity<GitLab[]> getGithubRepo(@RequestParam String q) {
-        return repoClientEventService.getGitLabRepo(q);
+    public ResponseEntity<Repo[]> getGithubRepo(@RequestParam String q) {
+        Repo[] results = repoClientEventService.getRepo(q);
+        return new ResponseEntity<>(results, HttpStatus.OK);
     }
 
     @ExceptionHandler(WebClientResponseException.class)

@@ -1,11 +1,12 @@
 package springframework.guru.webclientdemo.service;
 
-import org.springframework.http.ResponseEntity;
-import springframework.guru.webclientdemo.domain.Github;
-import springframework.guru.webclientdemo.domain.GitLab;
+import springframework.guru.webclientdemo.domain.GithubSearchResponse;
+import springframework.guru.webclientdemo.domain.GitLabSearchResponse;
+import springframework.guru.webclientdemo.domain.Repo;
 
 public interface RepoClientEventService {
-    public ResponseEntity<Github> getGithubRepo(String q);
-    public ResponseEntity<GitLab[]> getGitLabRepo(String q);
+    public GithubSearchResponse getGithubRepo(String q);
+    public GitLabSearchResponse[] getGitLabRepo(String q);
+    public Repo[] getRepo(String q);
 }
 

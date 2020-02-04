@@ -9,8 +9,15 @@ public class GithubItem {
     private  String language;
     @JsonProperty("full_name")
     private String full_name;
+    @JsonProperty("star_count")
+    private String star_count;
 
-    public GithubItem() {
+    public String getStar_count() {
+        return star_count;
+    }
+
+    public void setStar_count(String star_count) {
+        this.star_count = star_count;
     }
 
     public int getWatchers_count() {

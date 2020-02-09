@@ -1,6 +1,6 @@
 package springframework.guru.repoSearchEngine.service;
 
-
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -11,18 +11,24 @@ import springframework.guru.repoSearchEngine.dto.gitlab.GitlabRepoDto;
 
 @Service
 public class GitlabServiceImpl implements GitlabService {
-    private static final String GITLAB_BASE_URL = "https://gitlab.com/api/v4/search";
+    private static String GITLAB_BASE_URL;
+    private static String GITLAB_API_KEY;
 
-    public GitlabServiceImpl() {
+    public GitlabServiceImpl(@Value("${GITLAB_BASE_URL}") String GITLAB_BASE_URL,
+                             @Value("${GITLAB_API_KEY}") String GITLAB_API_KEY
+                             ) {
+        this.GITLAB_BASE_URL = GITLAB_BASE_URL;
+        this.GITLAB_API_KEY = GITLAB_API_KEY;
     }
-
     @Override
     public GitlabRepoDto[] searchGitLabRepo(String q) {
         RestTemplate restTemplate = new RestTemplate();
         HttpHeaders headers = new HttpHeaders();
-        headers.set("PRIVATE-TOKEN", "y4iEVLmaqqU8Mge8fmUD");
+        headers.set("PRIVATE-TOKEN", GITLAB_API_KEY);
         HttpEntity<String> entity = new HttpEntity<String>("parameters", headers);
-        ResponseEntity<GitlabRepoDto[]> gitLabRepo = restTemplate.exchange(GITLAB_BASE_URL + "?scope=projects&search=" + q,
+        String request_url = GITLAB_BASE_URL + "?scope=projects&search=" + q;
+        ResponseEntity<GitlabRepoDto[]> gitLabRepo = restTemplate.exchange(
+                request_url,
                 HttpMethod.GET, entity,
                 GitlabRepoDto[].class);
         GitlabRepoDto[] gitlab = gitLabRepo.getBody();

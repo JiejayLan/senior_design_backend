@@ -1,7 +1,7 @@
-package springframework.guru.webclientdemo.domain;
+package springframework.guru.webclientdemo.dto.gitlab;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class GitLabSearchResponse {
+public class GitlabRepoDto {
 
     @JsonProperty("description")
     private String description;
@@ -38,8 +38,6 @@ public class GitLabSearchResponse {
     public void setName(String name) {
         this.name = name;
     }
-
-
 
     public String getDescription() {
         return description;

@@ -1,6 +1,6 @@
 package springframework.guru.webclientdemo.controller;
 import org.springframework.http.HttpStatus;
-import springframework.guru.webclientdemo.domain.Repo;
+import springframework.guru.webclientdemo.dto.Repo;
 import springframework.guru.webclientdemo.service.RepoClientEventService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.reactive.function.client.WebClientResponseException;
+import java.util.ArrayList;
 
 @RestController
 @RequestMapping("/api/v1")
@@ -21,8 +22,8 @@ public class RepoController {
     }
 
     @GetMapping("/search")
-    public ResponseEntity<Repo[]> getGithubRepo(@RequestParam String q) {
-        Repo[] results = repoClientEventService.getRepo(q);
+    public ResponseEntity<ArrayList<Repo>> getGithubRepo(@RequestParam String q) {
+        ArrayList<Repo> results = repoClientEventService.getRepo(q);
         return new ResponseEntity<>(results, HttpStatus.OK);
     }
 

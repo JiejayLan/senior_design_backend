@@ -1,4 +1,4 @@
-package springframework.guru.webclientdemo.domain;
+package springframework.guru.webclientdemo.dto.github;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 

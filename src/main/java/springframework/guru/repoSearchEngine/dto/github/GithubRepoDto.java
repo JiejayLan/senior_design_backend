@@ -1,9 +1,9 @@
-package springframework.guru.webclientdemo.domain;
+package springframework.guru.webclientdemo.dto.github;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.ArrayList;
 
-public class GithubSearchResponse {
+public class GithubRepoDto {
     @JsonProperty("total_count")
     private int total_count;
     @JsonProperty("incomplete_results")
@@ -11,7 +11,7 @@ public class GithubSearchResponse {
     @JsonProperty("items")
     private ArrayList<GithubItem> items;
 
-    public GithubSearchResponse() {
+    public GithubRepoDto() {
     }
 
     public int getTotal_count() {

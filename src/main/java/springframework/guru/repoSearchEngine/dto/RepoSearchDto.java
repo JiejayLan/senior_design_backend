@@ -1,4 +1,4 @@
-package springframework.guru.webclientdemo.domain;
+package springframework.guru.repoSearchEngine.dto;
 
 public class Repo {
 

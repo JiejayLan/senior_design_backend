@@ -1,4 +1,4 @@
-# seniorDesign backend API
+# Senior Design backend API
 <a href="https://codeclimate.com/github/JiejayLan/repo_search_engine/maintainability"><img src="https://api.codeclimate.com/v1/badges/f98f041f09218a551560/maintainability" /></a>
 
 ## Project Description:

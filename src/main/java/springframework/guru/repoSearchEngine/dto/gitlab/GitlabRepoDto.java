@@ -1,4 +1,4 @@
-package springframework.guru.webclientdemo.dto.gitlab;
+package springframework.guru.repoSearchEngine.dto.gitlab;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class GitlabRepoDto {

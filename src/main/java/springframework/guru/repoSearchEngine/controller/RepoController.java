@@ -1,7 +1,7 @@
-package springframework.guru.webclientdemo.controller;
+package springframework.guru.repoSearchEngine.controller;
 import org.springframework.http.HttpStatus;
-import springframework.guru.webclientdemo.dto.Repo;
-import springframework.guru.webclientdemo.service.RepoClientEventService;
+import springframework.guru.repoSearchEngine.dto.RepoSearchDto;
+import springframework.guru.repoSearchEngine.service.RepoClientEventService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,8 +22,8 @@ public class RepoController {
     }
 
     @GetMapping("/search")
-    public ResponseEntity<ArrayList<Repo>> getGithubRepo(@RequestParam String q) {
-        ArrayList<Repo> results = repoClientEventService.getRepo(q);
+    public ResponseEntity<ArrayList<RepoSearchDto>> getGithubRepo(@RequestParam String q) {
+        ArrayList<RepoSearchDto> results = repoClientEventService.getRepo(q);
         return new ResponseEntity<>(results, HttpStatus.OK);
     }
 

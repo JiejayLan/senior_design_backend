@@ -1,4 +1,4 @@
-package springframework.guru.webclientdemo.dto.github;
+package springframework.guru.repoSearchEngine.dto.github;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 

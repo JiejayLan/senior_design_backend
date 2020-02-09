@@ -1,9 +1,12 @@
-# Consume and Test REST APIs using Spring 5's Reactive WebClient and WebTestClient.
+# seniorDesign backend API
 
-## Steps to Setup
+## Project Description:
+- Analyzing over 25m open source projects and creating a web dashboard to display the results
+- Extracting features from the dataset and using TensorFlow to train a machine learning model
+- Using the model created and TensorFlow.js to predict star numbers that a new project can get on the web dashboard
 
-1. Obtain an API Key at [omdb site] [http://www.omdbapi.com/apikey.aspx]
 
-2. Open `src/main/resources/application.properties` and specify your API Key in `app.api.key` property.
-
-3. Run the app using `mvn spring-boot:run`
+## Member Names:
+- Jie Lan (Team Leader)
+- Bida Chen
+- Kai Hang Chen

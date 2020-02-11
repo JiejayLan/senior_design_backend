@@ -1,4 +1,4 @@
-package springframework.guru.repoSearchEngine.service.GitlabService;
+package springframework.guru.repoSearchEngine.service.gitlabApiService;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
@@ -10,12 +10,12 @@ import org.springframework.web.client.RestTemplate;
 import springframework.guru.repoSearchEngine.dto.gitlab.GitlabRepoDto;
 
 @Service
-public class GitlabServiceImpl implements GitlabService {
+public class GitlabApiServiceImpl implements GitlabApiService {
     private static String GITLAB_BASE_URL;
     private static String GITLAB_API_KEY;
 
-    public GitlabServiceImpl(@Value("${GITLAB_BASE_URL}") String GITLAB_BASE_URL,
-                             @Value("${GITLAB_API_KEY}") String GITLAB_API_KEY
+    public GitlabApiServiceImpl(@Value("${GITLAB_BASE_URL}") String GITLAB_BASE_URL,
+                                @Value("${GITLAB_API_KEY}") String GITLAB_API_KEY
                              ) {
         this.GITLAB_BASE_URL = GITLAB_BASE_URL;
         this.GITLAB_API_KEY = GITLAB_API_KEY;

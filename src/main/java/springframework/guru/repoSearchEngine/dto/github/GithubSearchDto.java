@@ -3,11 +3,11 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.ArrayList;
 
-public class GithubRepoDto {
+public class GithubSearchDto {
     @JsonProperty("items")
     private ArrayList<GithubItem> items;
 
-    public GithubRepoDto() {
+    public GithubSearchDto() {
     }
 
     public void setItems(ArrayList<GithubItem> items) {

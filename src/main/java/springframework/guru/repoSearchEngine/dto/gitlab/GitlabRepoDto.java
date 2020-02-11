@@ -46,6 +46,4 @@ public class GitlabRepoDto {
     public void setDescription(String description) {
         this.description = description;
     }
-
-
 }

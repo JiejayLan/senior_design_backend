@@ -1,7 +1,7 @@
-package springframework.guru.repoSearchEngine.service.GitlabService;
+package springframework.guru.repoSearchEngine.service.gitlabApiService;
 
 import springframework.guru.repoSearchEngine.dto.gitlab.GitlabRepoDto;
 
-public interface GitlabService {
+public interface GitlabApiService {
     GitlabRepoDto[] searchGitLabRepo(String q);
 }

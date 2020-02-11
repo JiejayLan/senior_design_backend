@@ -2,7 +2,7 @@ package springframework.guru.repoSearchEngine.dto;
 
 public class RepoSearchDto {
 
-    public RepoSearchDto(int watchers_count, int star_count, String full_name, String language) {
+    public RepoSearchDto(String full_name, String language, int watchers_count, int star_count) {
         this.watchers_count = watchers_count;
         this.full_name = full_name;
         this.star_count = star_count;

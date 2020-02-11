@@ -27,7 +27,11 @@ public class RepoSearchServiceImpl implements RepoSearchService {
         ArrayList<GithubItem> githubItems = githubResult.getItems();
         for (int i = 0; i < Math.min(githubItems.size(),REPO_SIZE); i++){
             GithubItem githubItem= githubItems.get(i);
-            results.add( new RepoSearchDto(githubItem.getWatchers_count(), githubItem.getStar_count(),"",""));
+            results.add( new RepoSearchDto(
+                    githubItem.getFull_name(),
+                    githubItem.getLanguage(),
+                    githubItem.getWatchers_count(),
+                    githubItem.getStar_count()));
         }
 
 //        GitlabRepoDto[] gitlabResults = gitlabService.searchGitLabRepo(q);

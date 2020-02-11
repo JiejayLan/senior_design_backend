@@ -17,7 +17,7 @@ public class GithubServiceImpl implements GithubService{
     public GithubRepoDto searchGithubRepo(String q) {
 
         RestTemplate restTemplate = new RestTemplate();
-        String request_url = GITHUB_BASE_URL +"?q="+q+"&sort=stars&order=desc&page=0";
+        String request_url = GITHUB_BASE_URL +"/repositories?q="+q+"&sort=stars&order=desc&page=0";
         GithubRepoDto githubRepoDto = restTemplate.getForObject(request_url, GithubRepoDto.class);
 
         return githubRepoDto;

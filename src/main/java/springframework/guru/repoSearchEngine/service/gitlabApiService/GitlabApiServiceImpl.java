@@ -21,12 +21,12 @@ public class GitlabApiServiceImpl implements GitlabApiService {
         this.GITLAB_API_KEY = GITLAB_API_KEY;
     }
     @Override
-    public GitlabRepoDto[] searchGitLabRepo(String q) {
+    public GitlabRepoDto[] searchGitLabRepo(String searchKey) {
         RestTemplate restTemplate = new RestTemplate();
         HttpHeaders headers = new HttpHeaders();
         headers.set("PRIVATE-TOKEN", GITLAB_API_KEY);
         HttpEntity<String> entity = new HttpEntity<String>("parameters", headers);
-        String request_url = GITLAB_BASE_URL + "?scope=projects&search=" + q;
+        String request_url = GITLAB_BASE_URL + "?scope=projects&search=" + searchKey;
         ResponseEntity<GitlabRepoDto[]> gitLabRepo = restTemplate.exchange(
                 request_url,
                 HttpMethod.GET, entity,

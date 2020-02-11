@@ -23,11 +23,18 @@ public class RepoSearchServiceImpl implements RepoSearchService {
         this.gitlabApiService = gitlabApiService;
         this.googleApiService = googleApiService;
     }
-    //分拆成多个小的methods
+
     @Override
-    public ArrayList<RepoSearchItem> searchRepo(String q){
+    public ArrayList<RepoSearchItem> searchRepo(String searchKey){
         ArrayList<RepoSearchItem> repos = new ArrayList<>();
-        GithubSearchDto githubResult = githubAPIService.searchGithubRepo(q);
+        searchGithubRepo(repos, searchKey);
+        searchGitlabRepo(repos, searchKey);
+        return repos;
+    }
+
+    @Override
+    public void searchGithubRepo(ArrayList<RepoSearchItem> repos, String searchKey){
+        GithubSearchDto githubResult = githubAPIService.searchGithubRepo(searchKey);
         ArrayList<GithubItem> githubItems = githubResult.getItems();
         for (int i = 0; i < Math.min(githubItems.size(),REPO_SIZE); i++){
             GithubItem githubItem= githubItems.get(i);
@@ -37,16 +44,11 @@ public class RepoSearchServiceImpl implements RepoSearchService {
                     githubItem.getWatchers_count(),
                     githubItem.getStar_count()));
         }
-        googleApiService.searchGitlabRepo(q);
+    }
 
-
-
-
-//        GitlabRepoDto[] gitlabResults = gitlabApiService.searchGitLabRepo(q);
-//        for (int i = 0; i < Math.min(gitlabResults.length,10); i++){
-//            GitlabRepoDto gitlabResult= gitlabResults[i];
-//            results.add(new RepoSearchItem(gitlabResult.getForks_count(), gitlabResult.getStar_count(),"",""));
-//        }
-        return repos;
+    @Override
+    public void searchGitlabRepo(ArrayList<RepoSearchItem> repos, String searchKey){
+        ArrayList<String> repo_links = googleApiService.searchGitlabRepoLinks(searchKey);
+        //imcomplete
     }
 }

@@ -22,8 +22,8 @@ public class RepoController {
     }
 
     @GetMapping("/search")
-    public ResponseEntity<ArrayList<RepoSearchItem>> getGithubRepo(@RequestParam String q) {
-        ArrayList<RepoSearchItem> results = repoSearchService.searchRepo(q);
+    public ResponseEntity<ArrayList<RepoSearchItem>> getGithubRepo(@RequestParam String searchKey) {
+        ArrayList<RepoSearchItem> results = repoSearchService.searchRepo(searchKey);
         return new ResponseEntity<>(results, HttpStatus.OK);
     }
 

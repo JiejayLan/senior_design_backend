@@ -6,6 +6,10 @@ import java.util.ArrayList;
 
 public interface RepoSearchService {
 
-    ArrayList<RepoSearchItem> searchRepo(String q);
+    ArrayList<RepoSearchItem> searchRepo(String searchKey);
+
+    void searchGithubRepo(ArrayList<RepoSearchItem> repos, String searchKey);
+
+    void searchGitlabRepo(ArrayList<RepoSearchItem> repos, String searchKey);
 }
 

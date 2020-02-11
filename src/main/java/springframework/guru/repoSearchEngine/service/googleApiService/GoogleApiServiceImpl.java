@@ -14,9 +14,9 @@ public class GoogleApiServiceImpl implements GoogleApiService{
     }
 
     @Override
-    public ArrayList<String> searchGitlabRepoLinks(String q){
+    public ArrayList<String> searchGitlabRepoLinks(String searchKey){
         RestTemplate restTemplate = new RestTemplate();
-        String request_url = GOOGLE_API_GITLAB_URL + "&q=" + q;
+        String request_url = GOOGLE_API_GITLAB_URL + "&q=" + searchKey;
         GoogleApiDto googleApiDto = restTemplate.getForObject(request_url, GoogleApiDto.class);
         ArrayList<GoogleLink> googleLinks = googleApiDto.getItems();
 

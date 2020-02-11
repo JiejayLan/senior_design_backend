@@ -14,10 +14,10 @@ public class GithubApiServiceImpl implements GithubApiService {
     }
 
     @Override
-    public GithubSearchDto searchGithubRepo(String q) {
+    public GithubSearchDto searchGithubRepo(String searchKey) {
 
         RestTemplate restTemplate = new RestTemplate();
-        String request_url = GITHUB_BASE_URL +"/repositories?q="+q+"&sort=stars&order=desc&page=0";
+        String request_url = GITHUB_BASE_URL +"/repositories?q="+searchKey+"&sort=stars&order=desc&page=0";
         GithubSearchDto githubSearchDto = restTemplate.getForObject(request_url, GithubSearchDto.class);
 
         return githubSearchDto;

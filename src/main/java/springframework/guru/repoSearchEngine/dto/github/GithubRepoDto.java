@@ -18,16 +18,16 @@ public class GithubRepoDto {
         return total_count;
     }
 
-    public boolean isIncomplete_results() {
-        return incomplete_results;
-    }
-
     public void setTotal_count(int total_count) {
         this.total_count = total_count;
     }
 
     public void setIncomplete_results(boolean incomplete_results) {
         this.incomplete_results = incomplete_results;
+    }
+
+    public boolean getIncomplete_results() {
+        return incomplete_results;
     }
 
     public void setItems(ArrayList<GithubItem> items) {

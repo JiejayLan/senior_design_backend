@@ -1,4 +1,4 @@
-package springframework.guru.repoSearchEngine.service;
+package springframework.guru.repoSearchEngine.service.GithubService;
 import springframework.guru.repoSearchEngine.dto.github.GithubRepoDto;
 
 public interface GithubService {

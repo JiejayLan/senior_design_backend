@@ -1,9 +1,8 @@
-package springframework.guru.repoSearchEngine.service;
+package springframework.guru.repoSearchEngine.service.GithubService;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import springframework.guru.repoSearchEngine.dto.github.GithubRepoDto;
-
 
 @Service
 public class GithubServiceImpl implements GithubService{
@@ -18,7 +17,7 @@ public class GithubServiceImpl implements GithubService{
     public GithubRepoDto searchGithubRepo(String q) {
 
         RestTemplate restTemplate = new RestTemplate();
-        String request_url = GITHUB_BASE_URL +"?q="+q+"&sort=stars&order=desc";
+        String request_url = GITHUB_BASE_URL +"?q="+q+"&sort=stars&order=desc&page=0";
         GithubRepoDto githubRepoDto = restTemplate.getForObject(request_url, GithubRepoDto.class);
 
         return githubRepoDto;

@@ -46,7 +46,4 @@ public class RepoSearchDto {
         this.star_count = star_count;
     }
 
-
-
-
 }

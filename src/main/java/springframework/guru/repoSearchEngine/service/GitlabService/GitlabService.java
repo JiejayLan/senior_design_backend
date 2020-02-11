@@ -1,4 +1,4 @@
-package springframework.guru.repoSearchEngine.service;
+package springframework.guru.repoSearchEngine.service.GitlabService;
 
 import springframework.guru.repoSearchEngine.dto.gitlab.GitlabRepoDto;
 

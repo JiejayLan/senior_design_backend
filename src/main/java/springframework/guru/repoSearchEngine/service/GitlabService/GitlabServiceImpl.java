@@ -1,4 +1,4 @@
-package springframework.guru.repoSearchEngine.service;
+package springframework.guru.repoSearchEngine.service.GitlabService;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;

@@ -7,6 +7,7 @@ import springframework.guru.repoSearchEngine.service.githubApiService.GithubApiS
 import springframework.guru.repoSearchEngine.service.gitlabApiService.GitlabApiService;
 import springframework.guru.repoSearchEngine.service.googleApiService.GoogleApiService;
 import java.util.ArrayList;
+import java.util.Set;
 
 @Service
 public class RepoSearchServiceImpl implements RepoSearchService {
@@ -48,7 +49,7 @@ public class RepoSearchServiceImpl implements RepoSearchService {
 
     @Override
     public void searchGitlabRepo(ArrayList<RepoSearchItem> repos, String searchKey){
-        ArrayList<String> repo_links = googleApiService.searchGitlabRepoLinks(searchKey);
+        Set<String> repo_links = googleApiService.searchGitlabRepoLinks(searchKey);
         //imcomplete
     }
 }

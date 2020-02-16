@@ -1,7 +1,7 @@
 package springframework.guru.repoSearchEngine.service.googleApiService;
 
-import java.util.ArrayList;
+import java.util.Set;
 
 public interface GoogleApiService {
-    ArrayList<String> searchGitlabRepoLinks(String q);
+    Set<String> searchGitlabRepoLinks(String q);
 }

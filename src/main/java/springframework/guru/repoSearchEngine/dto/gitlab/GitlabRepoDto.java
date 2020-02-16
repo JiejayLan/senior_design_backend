@@ -1,6 +1,8 @@
 package springframework.guru.repoSearchEngine.dto.gitlab;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import java.util.ArrayList;
+
 public class GitlabRepoDto {
 
     @JsonProperty("description")
@@ -14,6 +16,28 @@ public class GitlabRepoDto {
 
     @JsonProperty("name")
     private String name;
+
+    @JsonProperty("tag_list")
+    public String[] tag_list;
+
+    @JsonProperty("shared_with_groups")
+    public String[] shared_with_groups;
+
+    public String[] getShared_with_groups() {
+        return shared_with_groups;
+    }
+
+    public String[] getTag_list() {
+        return tag_list;
+    }
+
+    public void setTag_list(String[] tag_list) {
+        this.tag_list = tag_list;
+    }
+
+    public void setShared_with_groups(String[] shared_with_groups) {
+        this.shared_with_groups = shared_with_groups;
+    }
 
     public int getStar_count() {
         return star_count;

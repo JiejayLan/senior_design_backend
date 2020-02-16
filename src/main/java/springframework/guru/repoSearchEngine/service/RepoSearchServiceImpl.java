@@ -50,6 +50,14 @@ public class RepoSearchServiceImpl implements RepoSearchService {
     @Override
     public void searchGitlabRepo(ArrayList<RepoSearchItem> repos, String searchKey){
         Set<String> repo_links = googleApiService.searchGitlabRepoLinks(searchKey);
-        //imcomplete
+        acquireGitlabRepoByLink(repos, repo_links);
+    }
+
+    @Override
+    public void acquireGitlabRepoByLink(ArrayList<RepoSearchItem> repos,Set<String> repo_links ){
+        for(String link : repo_links){
+            gitlabApiService.acquireSingleRepo(link);
+        }
+
     }
 }

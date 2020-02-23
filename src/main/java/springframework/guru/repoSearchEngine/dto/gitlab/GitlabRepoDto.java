@@ -1,10 +1,10 @@
 package springframework.guru.repoSearchEngine.dto.gitlab;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import java.util.ArrayList;
+
 public class GitlabRepoDto {
 
-    @JsonProperty("description")
-    private String description;
 
     @JsonProperty("star_count")
     private int star_count;
@@ -14,6 +14,8 @@ public class GitlabRepoDto {
 
     @JsonProperty("name")
     private String name;
+
+
 
     public int getStar_count() {
         return star_count;
@@ -37,14 +39,6 @@ public class GitlabRepoDto {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
     }
 
 

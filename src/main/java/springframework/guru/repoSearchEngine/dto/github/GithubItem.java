@@ -6,10 +6,10 @@ public class GithubItem {
     @JsonProperty("watchers_count")
     private int watchers_count;
     @JsonProperty("language")
-    private  String language;
+    private String language;
     @JsonProperty("full_name")
     private String full_name;
-    @JsonProperty("star_count")
+    @JsonProperty("stargazers_count")
     private int star_count;
 
     public int getStar_count() {

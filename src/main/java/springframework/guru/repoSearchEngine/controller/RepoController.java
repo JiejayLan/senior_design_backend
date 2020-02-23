@@ -1,7 +1,7 @@
 package springframework.guru.repoSearchEngine.controller;
 import org.springframework.http.HttpStatus;
-import springframework.guru.repoSearchEngine.dto.RepoSearchDto;
-import springframework.guru.repoSearchEngine.service.RepoClientEventService;
+import springframework.guru.repoSearchEngine.dto.RepoSearchItem;
+import springframework.guru.repoSearchEngine.service.RepoSearchService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,16 +14,16 @@ import java.util.ArrayList;
 @RequestMapping("/api/v1")
 public class RepoController {
     private static final Logger logger = LoggerFactory.getLogger(RepoController.class);
-    private RepoClientEventService repoClientEventService;
+    private RepoSearchService repoSearchService;
 
     @Autowired
-    public RepoController(RepoClientEventService repoClientEventService){
-        this.repoClientEventService = repoClientEventService;
+    public RepoController(RepoSearchService repoSearchService){
+        this.repoSearchService = repoSearchService;
     }
 
     @GetMapping("/search")
-    public ResponseEntity<ArrayList<RepoSearchDto>> getGithubRepo(@RequestParam String q) {
-        ArrayList<RepoSearchDto> results = repoClientEventService.getRepo(q);
+    public ResponseEntity<ArrayList<RepoSearchItem>> getGithubRepo(@RequestParam String searchKey) {
+        ArrayList<RepoSearchItem> results = repoSearchService.searchRepo(searchKey);
         return new ResponseEntity<>(results, HttpStatus.OK);
     }
 

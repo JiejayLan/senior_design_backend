@@ -2,7 +2,8 @@ package springframework.guru.repoSearchEngine.dto;
 
 public class RepoSearchItem {
 
-    public RepoSearchItem(String full_name, String language, int watchers_count, int star_count) {
+    public RepoSearchItem(String platform, String full_name, String language, int watchers_count, int star_count) {
+        this.platform = platform;
         this.watchers_count = watchers_count;
         this.full_name = full_name;
         this.star_count = star_count;
@@ -13,6 +14,15 @@ public class RepoSearchItem {
     private String full_name;
     private int star_count;
     private  String language;
+    private  String platform;
+
+    public String getPlatform() {
+        return platform;
+    }
+
+    public void setPlatform(String platform) {
+        this.platform = platform;
+    }
 
     public int getWatchers_count() {
         return watchers_count;

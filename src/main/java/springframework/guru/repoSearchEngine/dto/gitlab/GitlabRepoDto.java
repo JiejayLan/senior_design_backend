@@ -12,8 +12,8 @@ public class GitlabRepoDto {
     @JsonProperty("forks_count")
     private int forks_count;
 
-    @JsonProperty("name")
-    private String name;
+    @JsonProperty("path_with_namespace")
+    private String full_name;
 
 
 
@@ -34,11 +34,11 @@ public class GitlabRepoDto {
     }
 
     public String getName() {
-        return name;
+        return full_name;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setName(String full_name) {
+        this.full_name = full_name;
     }
 
 

@@ -51,6 +51,7 @@ public class RepoSearchServiceImpl implements RepoSearchService {
                     continue;
 
                 repos.add( new RepoSearchItem(
+                        "github",
                         githubItem.getFull_name(),
                         githubItem.getLanguage(),
                         githubItem.getWatchers_count(),
@@ -77,6 +78,27 @@ public class RepoSearchServiceImpl implements RepoSearchService {
 
     }
 
+    @Override
+    public void acquireGitlabRepoByLink(ArrayList<RepoSearchItem> repos,Set<String> repo_links ){
+        try{
+            for(String link : repo_links){
+                GitlabRepoDto gitlabRepoDto = gitlabApiService.acquireSingleRepo(link);
+                if (gitlabRepoDto ==null)
+                    continue;
+                repos.add( new RepoSearchItem(
+                        "gitlab",
+                        gitlabRepoDto.getName(),
+                        null,
+                        gitlabRepoDto.getForks_count(),//missing watcher count
+                        gitlabRepoDto.getStar_count()));
+            }
+        }
+        catch(Exception ex){
+            return;
+        }
+    }
+
+    @Override
     public void searchBitbucketRepo(ArrayList<RepoSearchItem> repos, String searchKey){
         try{
             Set<String> repo_links = googleApiService.searchBitbucketRepoLinks(searchKey);
@@ -90,25 +112,6 @@ public class RepoSearchServiceImpl implements RepoSearchService {
     }
 
     @Override
-    public void acquireGitlabRepoByLink(ArrayList<RepoSearchItem> repos,Set<String> repo_links ){
-        try{
-            for(String link : repo_links){
-                GitlabRepoDto bitbucketRepoDto = gitlabApiService.acquireSingleRepo(link);
-                if (bitbucketRepoDto ==null)
-                    continue;
-                repos.add( new RepoSearchItem(
-                        bitbucketRepoDto.getName(),
-                        null,
-                        0,//missing watcher count
-                        0));
-            }
-        }
-        catch(Exception ex){
-            return;
-        }
-    }
-
-    @Override
     public void acquireBitbucketRepoByLink(ArrayList<RepoSearchItem> repos,Set<String> repo_links ){
         try{
             for(String link : repo_links){
@@ -116,6 +119,7 @@ public class RepoSearchServiceImpl implements RepoSearchService {
                 if (bitbucketRepoDto ==null)
                     continue;
                 repos.add( new RepoSearchItem(
+                        "bitbucket",
                         bitbucketRepoDto.getFull_name(),
                         bitbucketRepoDto.getLanguage(),
                         0,//missing watcher count

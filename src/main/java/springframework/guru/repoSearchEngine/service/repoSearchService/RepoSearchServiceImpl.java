@@ -1,4 +1,4 @@
-package springframework.guru.repoSearchEngine.service;
+package springframework.guru.repoSearchEngine.service.repoSearchService;
 import org.springframework.stereotype.Service;
 import springframework.guru.repoSearchEngine.dto.RepoSearchItem;
 import springframework.guru.repoSearchEngine.dto.bitbucket.BitbucketRepoDto;

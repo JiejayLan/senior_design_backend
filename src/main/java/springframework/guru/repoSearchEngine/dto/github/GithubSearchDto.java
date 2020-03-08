@@ -5,16 +5,16 @@ import java.util.ArrayList;
 
 public class GithubSearchDto {
     @JsonProperty("items")
-    private ArrayList<GithubItem> items;
+    private GithubItem[] items;
 
     public GithubSearchDto() {
     }
 
-    public void setItems(ArrayList<GithubItem> items) {
+    public void setItems(GithubItem[] items) {
         this.items = items;
     }
 
-    public ArrayList<GithubItem> getItems() {
+    public GithubItem[] getItems() {
         return items;
     }
 }

@@ -44,9 +44,9 @@ public class RepoSearchServiceImpl implements RepoSearchService {
     public void searchGithubRepo(ArrayList<RepoSearchItem> repos, String searchKey){
         try{
             GithubSearchDto githubResult = githubAPIService.searchGithubRepo(searchKey);
-            ArrayList<GithubItem> githubItems = githubResult.getItems();
-            for (int i = 0; i < Math.min(githubItems.size(),REPO_SIZE); i++){
-                GithubItem githubItem= githubItems.get(i);
+            GithubItem[] githubItems = githubResult.getItems();
+            for (int i = 0; i < Math.min(githubItems.length,REPO_SIZE); i++){
+                GithubItem githubItem= githubItems[i];
                 if (githubItem == null)
                     continue;
 
@@ -61,7 +61,6 @@ public class RepoSearchServiceImpl implements RepoSearchService {
         catch (Exception ex){
             return;
         }
-
     }
 
     @Override

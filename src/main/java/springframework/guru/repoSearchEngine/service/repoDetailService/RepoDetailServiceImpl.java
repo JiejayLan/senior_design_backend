@@ -1,5 +1,7 @@
 package springframework.guru.repoSearchEngine.service.repoDetailService;
 import org.springframework.stereotype.Service;
+import springframework.guru.repoSearchEngine.dto.RepoDetail;
+import springframework.guru.repoSearchEngine.dto.bitbucket.BitbucketRepoDto;
 import springframework.guru.repoSearchEngine.service.bitbucketApiService.BitbucketApiService;
 import springframework.guru.repoSearchEngine.service.githubApiService.GithubApiService;
 import springframework.guru.repoSearchEngine.service.gitlabApiService.GitlabApiService;
@@ -21,10 +23,27 @@ public class RepoDetailServiceImpl implements RepoDetailService{
     }
 
     @Override
-    public String acquireRepoDetail(String platform, String full_name){
+    public RepoDetail acquireRepoDetail(String platform, String full_name){
+        RepoDetail repoInfo = new RepoDetail();
 
-        acquireRepoCommits(platform, full_name);
-        return "OK";
+        if(platform.equals("bitbucket")) {
+            BitbucketRepoDto bitbucketRepoDto= bitbucketApiService.acquireSingleRepo(full_name);
+            repoInfo.setFull_name(bitbucketRepoDto.getFull_name());
+            repoInfo.setLanguage(bitbucketRepoDto.getLanguage());
+        }
+        else if(platform.equals("gitlab")){
+
+        }
+        else if(platform.equals("github")){
+
+        }
+        else
+            return repoInfo;
+
+        ArrayList<String> commits = acquireRepoCommits(platform, full_name);
+        repoInfo.setCommits(commits);
+
+        return repoInfo;
     }
 
     //acquire the first 300 latest Commits

@@ -1,5 +1,6 @@
 package springframework.guru.repoSearchEngine.controller;
 import org.springframework.http.HttpStatus;
+import springframework.guru.repoSearchEngine.dto.RepoDetail;
 import springframework.guru.repoSearchEngine.dto.RepoSearchItem;
 import springframework.guru.repoSearchEngine.service.repoSearchService.RepoSearchService;
 import springframework.guru.repoSearchEngine.service.repoDetailService.RepoDetailService;
@@ -32,7 +33,7 @@ public class RepoController {
     }
 
     @GetMapping("/detail")
-    public String getSingleRepo(@RequestParam String platform, @RequestParam String full_name) {
+    public RepoDetail getSingleRepo(@RequestParam String platform, @RequestParam String full_name) {
         return repoDetailService.acquireRepoDetail(platform, full_name);
     }
 

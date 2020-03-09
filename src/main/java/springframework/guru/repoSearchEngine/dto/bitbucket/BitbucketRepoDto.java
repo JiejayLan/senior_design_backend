@@ -13,11 +13,7 @@ public class BitbucketRepoDto {
     @JsonProperty("updated_on")
     private String updated_on;
 
-    public BitbucketRepoDto(String full_name, String language, String updated_on) {
-        this.full_name = full_name;
-        this.language = language;
-        this.updated_on = updated_on;
-    }
+    public BitbucketRepoDto() { }
 
     public String getFull_name() {
         return full_name;

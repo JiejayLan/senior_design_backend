@@ -66,7 +66,7 @@ public class RepoSearchServiceImpl implements RepoSearchService {
     @Override
     public void searchGitlabRepo(ArrayList<RepoSearchItem> repos, String searchKey){
         try{
-            Set<String> repo_links = googleApiService.searchGitlabRepoLinks(searchKey);
+            Set<String> repo_links = googleApiService.searchRepoLinks("gitlab", searchKey);
             if(repo_links == null)
                 return;
             acquireGitlabRepoByLink(repos, repo_links);
@@ -100,7 +100,7 @@ public class RepoSearchServiceImpl implements RepoSearchService {
     @Override
     public void searchBitbucketRepo(ArrayList<RepoSearchItem> repos, String searchKey){
         try{
-            Set<String> repo_links = googleApiService.searchBitbucketRepoLinks(searchKey);
+            Set<String> repo_links = googleApiService.searchRepoLinks("bitbucket",searchKey);
             if(repo_links == null)
                 return;
             acquireBitbucketRepoByLink(repos, repo_links);

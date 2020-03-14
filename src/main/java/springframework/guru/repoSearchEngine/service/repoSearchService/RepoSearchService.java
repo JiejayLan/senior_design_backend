@@ -1,4 +1,4 @@
-package springframework.guru.repoSearchEngine.service;
+package springframework.guru.repoSearchEngine.service.repoSearchService;
 
 import springframework.guru.repoSearchEngine.dto.RepoSearchItem;
 

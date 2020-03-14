@@ -13,6 +13,8 @@ public class BitbucketRepoDto {
     @JsonProperty("updated_on")
     private String updated_on;
 
+    public BitbucketRepoDto() { }
+
     public String getFull_name() {
         return full_name;
     }

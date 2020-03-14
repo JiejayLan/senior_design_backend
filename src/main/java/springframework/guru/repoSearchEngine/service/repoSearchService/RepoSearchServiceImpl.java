@@ -1,4 +1,4 @@
-package springframework.guru.repoSearchEngine.service;
+package springframework.guru.repoSearchEngine.service.repoSearchService;
 import org.springframework.stereotype.Service;
 import springframework.guru.repoSearchEngine.dto.RepoSearchItem;
 import springframework.guru.repoSearchEngine.dto.bitbucket.BitbucketRepoDto;
@@ -44,9 +44,9 @@ public class RepoSearchServiceImpl implements RepoSearchService {
     public void searchGithubRepo(ArrayList<RepoSearchItem> repos, String searchKey){
         try{
             GithubSearchDto githubResult = githubAPIService.searchGithubRepo(searchKey);
-            ArrayList<GithubItem> githubItems = githubResult.getItems();
-            for (int i = 0; i < Math.min(githubItems.size(),REPO_SIZE); i++){
-                GithubItem githubItem= githubItems.get(i);
+            GithubItem[] githubItems = githubResult.getItems();
+            for (int i = 0; i < Math.min(githubItems.length,REPO_SIZE); i++){
+                GithubItem githubItem= githubItems[i];
                 if (githubItem == null)
                     continue;
 
@@ -61,13 +61,12 @@ public class RepoSearchServiceImpl implements RepoSearchService {
         catch (Exception ex){
             return;
         }
-
     }
 
     @Override
     public void searchGitlabRepo(ArrayList<RepoSearchItem> repos, String searchKey){
         try{
-            Set<String> repo_links = googleApiService.searchGitlabRepoLinks(searchKey);
+            Set<String> repo_links = googleApiService.searchRepoLinks("gitlab", searchKey);
             if(repo_links == null)
                 return;
             acquireGitlabRepoByLink(repos, repo_links);
@@ -101,7 +100,7 @@ public class RepoSearchServiceImpl implements RepoSearchService {
     @Override
     public void searchBitbucketRepo(ArrayList<RepoSearchItem> repos, String searchKey){
         try{
-            Set<String> repo_links = googleApiService.searchBitbucketRepoLinks(searchKey);
+            Set<String> repo_links = googleApiService.searchRepoLinks("bitbucket",searchKey);
             if(repo_links == null)
                 return;
             acquireBitbucketRepoByLink(repos, repo_links);

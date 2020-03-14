@@ -20,10 +20,18 @@ public class GoogleApiServiceImpl implements GoogleApiService{
     }
 
     @Override
-    public Set<String> searchGitlabRepoLinks(String searchKey){
-        RestTemplate restTemplate = new RestTemplate();
-        String request_url = GOOGLE_API_GITLAB_URL + "&q=" + searchKey;
+    public Set<String> searchRepoLinks(String platform, String searchKey){
         try{
+            RestTemplate restTemplate = new RestTemplate();
+            String request_url;
+
+            if(platform == "gitlab")
+                request_url = GOOGLE_API_GITLAB_URL + "&q=" + searchKey;
+            else if(platform == "bitbucket")
+                request_url = GOOGLE_API_BITBUCKET_URL + "&q=" + searchKey;
+            else
+                throw new IllegalArgumentException("Invalid platform argument");
+
             GoogleApiDto googleApiDto = restTemplate.getForObject(request_url, GoogleApiDto.class);
             ArrayList<GoogleLink> googleLinks = googleApiDto.getItems();
             Set<String> repo_links = new HashSet<>();
@@ -33,7 +41,7 @@ public class GoogleApiServiceImpl implements GoogleApiService{
 
                 if(split_link.length <= 4)
                     continue;
-                repo_links.add(split_link[3] + "%2f" +split_link[4]);
+                repo_links.add(split_link[3] + "/" +split_link[4]);
             }
             return repo_links;
         }
@@ -42,26 +50,5 @@ public class GoogleApiServiceImpl implements GoogleApiService{
         }
     }
 
-    @Override
-    public Set<String> searchBitbucketRepoLinks(String searchKey){
-        RestTemplate restTemplate = new RestTemplate();
-        String request_url = GOOGLE_API_BITBUCKET_URL + "&q=" + searchKey;
-        try{
-            GoogleApiDto googleApiDto = restTemplate.getForObject(request_url, GoogleApiDto.class);
-            ArrayList<GoogleLink> googleLinks = googleApiDto.getItems();
-            Set<String> repo_links = new HashSet<>();
-            for(int i =0; i < googleLinks.size(); i++){
-                String repo_link = googleLinks.get(i).getLink();
-                String[] split_link = repo_link.split("/");
 
-                if(split_link.length <= 4)
-                    continue;
-                repo_links.add(split_link[3]  + "/" + split_link[4]);
-            }
-            return repo_links;
-        }
-        catch (Exception ex) {
-            return null;
-        }
-    }
 }

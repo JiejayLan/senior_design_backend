@@ -24,3 +24,6 @@ nbdist/
 .nb-gradle/
 
 secret.txt
+
+### Properities ###
+**/application.properties

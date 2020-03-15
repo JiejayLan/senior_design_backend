@@ -1,4 +1,5 @@
 package springframework.guru.repoSearchEngine.service.githubApiService;
+import org.springframework.http.HttpEntity;
 import springframework.guru.repoSearchEngine.dto.github.GithubItem;
 import springframework.guru.repoSearchEngine.dto.github.gitlubCommit.GithubCommit;
 import springframework.guru.repoSearchEngine.dto.github.GithubSearchDto;
@@ -10,4 +11,5 @@ public interface GithubApiService {
     GithubItem acquireSingleRepo(String path);
     ArrayList<String> getRepoCommits(String path, int page);
     ArrayList<String> extractDateString(GithubCommit[] githubCommits);
+    HttpEntity<String> setUpHttpEntity(String token);
 }

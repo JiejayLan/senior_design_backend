@@ -76,7 +76,7 @@ public class RepoDetailServiceImpl implements RepoDetailService{
             }
             commits_total.addAll(commits_single_page);
 
-            if(commits_single_page.size() > 300 - MAX_COMMITS_PER_PAGE)
+            if(commits_total.size() > 300 - MAX_COMMITS_PER_PAGE)
                 break;
             if(commits_single_page.size() < MAX_COMMITS_PER_PAGE)
                 break;

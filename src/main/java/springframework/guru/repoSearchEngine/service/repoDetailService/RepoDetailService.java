@@ -1,6 +1,6 @@
 package springframework.guru.repoSearchEngine.service.repoDetailService;
 
-import springframework.guru.repoSearchEngine.dto.RepoDetail;
+import springframework.guru.repoSearchEngine.dto.models.RepoDetail;
 import java.util.ArrayList;
 
 public interface RepoDetailService {

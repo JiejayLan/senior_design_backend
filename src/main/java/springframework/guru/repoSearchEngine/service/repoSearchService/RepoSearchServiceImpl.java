@@ -1,6 +1,6 @@
 package springframework.guru.repoSearchEngine.service.repoSearchService;
 import org.springframework.stereotype.Service;
-import springframework.guru.repoSearchEngine.dto.RepoSearchItem;
+import springframework.guru.repoSearchEngine.dto.models.RepoSearchItem;
 import springframework.guru.repoSearchEngine.dto.bitbucket.BitbucketRepoDto;
 import springframework.guru.repoSearchEngine.dto.github.GithubItem;
 import springframework.guru.repoSearchEngine.dto.github.GithubSearchDto;
@@ -45,17 +45,9 @@ public class RepoSearchServiceImpl implements RepoSearchService {
         try{
             GithubSearchDto githubResult = githubAPIService.searchGithubRepo(searchKey);
             GithubItem[] githubItems = githubResult.getItems();
-            for (int i = 0; i < Math.min(githubItems.length,REPO_SIZE); i++){
+            for (int i = 0; i < Math.min(githubItems.length, REPO_SIZE); i++){
                 GithubItem githubItem= githubItems[i];
-                if (githubItem == null)
-                    continue;
-
-                repos.add( new RepoSearchItem(
-                        "github",
-                        githubItem.getFull_name(),
-                        githubItem.getLanguage(),
-                        githubItem.getWatchers_count(),
-                        githubItem.getStar_count()));
+                repos.add(new RepoSearchItem(githubItem));
             }
         }
         catch (Exception ex){
@@ -85,11 +77,7 @@ public class RepoSearchServiceImpl implements RepoSearchService {
                 if (gitlabRepoDto ==null)
                     continue;
                 repos.add( new RepoSearchItem(
-                        "gitlab",
-                        gitlabRepoDto.getName(),
-                        null,
-                        gitlabRepoDto.getForks_count(),//missing watcher count
-                        gitlabRepoDto.getStar_count()));
+                   ));
             }
         }
         catch(Exception ex){
@@ -118,11 +106,7 @@ public class RepoSearchServiceImpl implements RepoSearchService {
                 if (bitbucketRepoDto ==null)
                     continue;
                 repos.add( new RepoSearchItem(
-                        "bitbucket",
-                        bitbucketRepoDto.getFull_name(),
-                        bitbucketRepoDto.getLanguage(),
-                        0,//missing watcher count
-                        0));
+                     ));
             }
         }
         catch(Exception ex){

@@ -1,6 +1,6 @@
 package springframework.guru.repoSearchEngine.service.repoSearchService;
 
-import springframework.guru.repoSearchEngine.dto.RepoSearchItem;
+import springframework.guru.repoSearchEngine.dto.models.RepoSearchItem;
 
 import java.util.ArrayList;
 import java.util.Set;

@@ -1,7 +1,7 @@
 package springframework.guru.repoSearchEngine.controller;
 import org.springframework.http.HttpStatus;
-import springframework.guru.repoSearchEngine.dto.RepoDetail;
-import springframework.guru.repoSearchEngine.dto.RepoSearchItem;
+import springframework.guru.repoSearchEngine.dto.models.RepoDetail;
+import springframework.guru.repoSearchEngine.dto.models.RepoSearchItem;
 import springframework.guru.repoSearchEngine.service.repoSearchService.RepoSearchService;
 import springframework.guru.repoSearchEngine.service.repoDetailService.RepoDetailService;
 import org.slf4j.Logger;

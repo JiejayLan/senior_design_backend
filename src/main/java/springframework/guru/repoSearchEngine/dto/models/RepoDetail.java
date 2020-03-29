@@ -1,36 +1,32 @@
-package springframework.guru.repoSearchEngine.dto.github;
+package springframework.guru.repoSearchEngine.dto.models;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.ArrayList;
 
-public class GithubItem {
-    private String platform = "github";
+public class RepoDetail {
+    private String platform;
 
-    @JsonProperty("html_url")
     private String web_url;
 
-    @JsonProperty("full_name")
     private String full_name;
 
-    @JsonProperty("language")
     private String language;
 
-    @JsonProperty("size")
     private int size;
 
-    @JsonProperty("stargazers_count")
     private int star_count;
 
-    @JsonProperty("forks_count")
     private int fork_count ;
 
-    @JsonProperty("description")
     private String description;
 
-    @JsonProperty("created_at")
     private String created_at;
 
-    @JsonProperty("updated_at")
     private String updated_at;
+
+    private ArrayList<String> commits;
+
+    public RepoDetail() {
+    }
 
     public String getPlatform() {
         return platform;
@@ -110,5 +106,13 @@ public class GithubItem {
 
     public void setUpdated_at(String updated_at) {
         this.updated_at = updated_at;
+    }
+
+    public ArrayList<String> getCommits() {
+        return commits;
+    }
+
+    public void setCommits(ArrayList<String> commits) {
+        this.commits = commits;
     }
 }

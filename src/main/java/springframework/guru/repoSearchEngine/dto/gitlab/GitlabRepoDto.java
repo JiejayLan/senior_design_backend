@@ -5,7 +5,6 @@ import java.util.ArrayList;
 
 public class GitlabRepoDto {
 
-
     @JsonProperty("star_count")
     private int star_count;
 
@@ -14,8 +13,6 @@ public class GitlabRepoDto {
 
     @JsonProperty("path_with_namespace")
     private String full_name;
-
-
 
     public int getStar_count() {
         return star_count;
@@ -40,6 +37,4 @@ public class GitlabRepoDto {
     public void setName(String full_name) {
         this.full_name = full_name;
     }
-
-
 }

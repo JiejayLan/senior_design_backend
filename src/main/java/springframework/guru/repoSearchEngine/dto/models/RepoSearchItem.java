@@ -1,5 +1,6 @@
 package springframework.guru.repoSearchEngine.dto.models;
 
+import springframework.guru.repoSearchEngine.dto.bitbucket.BitbucketRepoDto;
 import springframework.guru.repoSearchEngine.dto.github.GithubItem;
 
 public class RepoSearchItem {
@@ -25,6 +26,14 @@ public class RepoSearchItem {
         this.star_count = githubItem.getStar_count();
         this.description = githubItem.getDescription();
         this.updated_at = githubItem.getUpdated_at();
+    }
+
+    public RepoSearchItem(BitbucketRepoDto bitbucketRepoDto) {
+        this.platform = "bitbucket";
+        this.full_name = bitbucketRepoDto.getFull_name();
+        this.language = bitbucketRepoDto.getLanguage();
+        this.description = bitbucketRepoDto.getDescription();
+        this.updated_at = bitbucketRepoDto.getUpdated_at();
     }
 
     public String getPlatform() {

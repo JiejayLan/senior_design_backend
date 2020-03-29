@@ -16,6 +16,7 @@ import java.util.Set;
 public class RepoSearchServiceImpl implements RepoSearchService {
 
     private final int REPO_SIZE = 10;
+    private final int MAX_GOOGLE_PAGE = 9;
     private GitlabApiService gitlabApiService;
     private GithubApiService githubAPIService;
     private BitbucketApiService bitbucketApiService;
@@ -33,11 +34,17 @@ public class RepoSearchServiceImpl implements RepoSearchService {
 
     @Override
     public ArrayList<RepoSearchItem> searchRepo(String searchKey){
-        ArrayList<RepoSearchItem> repos = new ArrayList<>();
-        searchGithubRepo(repos, searchKey);
-        searchGitlabRepo(repos, searchKey);
-        searchBitbucketRepo(repos, searchKey);
-        return repos;
+        try{
+            ArrayList<RepoSearchItem> repos = new ArrayList<>();
+            searchGithubRepo(repos, searchKey);
+            searchGitlabRepo(repos, searchKey);
+            searchBitbucketRepo(repos, searchKey);
+            return repos;
+        }
+        catch (Exception ex){
+            return null;
+        }
+
     }
 
     @Override
@@ -58,10 +65,10 @@ public class RepoSearchServiceImpl implements RepoSearchService {
     @Override
     public void searchGitlabRepo(ArrayList<RepoSearchItem> repos, String searchKey){
         try{
-            Set<String> repo_links = googleApiService.searchRepoLinks("gitlab", searchKey);
+            Set<String> repo_links = googleApiService.searchRepoLinks("gitlab", searchKey, 1);
             if(repo_links == null)
                 return;
-            acquireGitlabRepoByLink(repos, repo_links);
+            acquireSingalGitlabRepo(repos, repo_links);
         }
         catch (Exception ex){
             return;
@@ -70,7 +77,7 @@ public class RepoSearchServiceImpl implements RepoSearchService {
     }
 
     @Override
-    public void acquireGitlabRepoByLink(ArrayList<RepoSearchItem> repos,Set<String> repo_links ){
+    public void acquireSingalGitlabRepo(ArrayList<RepoSearchItem> repos, Set<String> repo_links ){
         try{
             for(String link : repo_links){
                 GitlabRepoDto gitlabRepoDto = gitlabApiService.acquireSingleRepo(link);
@@ -88,10 +95,17 @@ public class RepoSearchServiceImpl implements RepoSearchService {
     @Override
     public void searchBitbucketRepo(ArrayList<RepoSearchItem> repos, String searchKey){
         try{
-            Set<String> repo_links = googleApiService.searchRepoLinks("bitbucket",searchKey);
-            if(repo_links == null)
-                return;
-            acquireBitbucketRepoByLink(repos, repo_links);
+            final int MAX_REPO_NUM = repos.size() + 10;
+            for(int page = 0; page <= MAX_GOOGLE_PAGE; page++){
+                if(repos.size() >= MAX_REPO_NUM)
+                    return;
+                Set<String> repo_fullnames = googleApiService.searchRepoLinks(
+                        "bitbucket",
+                        searchKey,
+                        page*10+1
+                );
+                acquireSingalBitbucketRepo(repos, repo_fullnames, MAX_REPO_NUM);
+            }
         }
         catch (Exception ex){
             return;
@@ -99,18 +113,21 @@ public class RepoSearchServiceImpl implements RepoSearchService {
     }
 
     @Override
-    public void acquireBitbucketRepoByLink(ArrayList<RepoSearchItem> repos,Set<String> repo_links ){
+    public void acquireSingalBitbucketRepo(ArrayList<RepoSearchItem> repos,
+                                           Set<String> repo_fullnames,
+                                           final int MAX_REPO_NUM){
         try{
-            for(String link : repo_links){
-                BitbucketRepoDto bitbucketRepoDto = bitbucketApiService.acquireSingleRepo(link);
-                if (bitbucketRepoDto ==null)
+            for(String repo_fullname : repo_fullnames){
+                BitbucketRepoDto bitbucketRepoDto = bitbucketApiService.acquireSingleRepo(repo_fullname);
+                if (bitbucketRepoDto == null)
                     continue;
-                repos.add( new RepoSearchItem(
-                     ));
+                repos.add( new RepoSearchItem(bitbucketRepoDto));
+                if(repos.size() >= MAX_REPO_NUM)
+                    break;
             }
         }
         catch(Exception ex){
-            return;
+            throw ex;
         }
     }
 }

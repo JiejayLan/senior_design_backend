@@ -2,6 +2,7 @@ package springframework.guru.repoSearchEngine.dto.models;
 
 import springframework.guru.repoSearchEngine.dto.bitbucket.BitbucketRepoDto;
 import springframework.guru.repoSearchEngine.dto.github.GithubItem;
+import springframework.guru.repoSearchEngine.dto.gitlab.GitlabRepoDto;
 
 public class RepoSearchItem {
 
@@ -35,6 +36,14 @@ public class RepoSearchItem {
         this.description = bitbucketRepoDto.getDescription();
         this.updated_at = bitbucketRepoDto.getUpdated_at();
     }
+
+    public RepoSearchItem(GitlabRepoDto gitlabRepoDto) {
+        this.platform = "gitlab";
+        this.full_name = gitlabRepoDto.getFull_name();
+        this.description = gitlabRepoDto.getDescription();
+        this.updated_at = gitlabRepoDto.getUpdated_at();
+    }
+
 
     public String getPlatform() {
         return platform;

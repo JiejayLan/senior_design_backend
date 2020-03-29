@@ -5,14 +5,41 @@ import java.util.ArrayList;
 
 public class GitlabRepoDto {
 
+    private String platform = "gitlab";
+
+    @JsonProperty("full_name")
+    private String full_name;
+
     @JsonProperty("star_count")
     private int star_count;
 
-    @JsonProperty("forks_count")
-    private int forks_count;
+    @JsonProperty("fork_count")
+    private int fork_count;
 
-    @JsonProperty("path_with_namespace")
-    private String full_name;
+    @JsonProperty("description")
+    private String description;
+
+    @JsonProperty("created_on")
+    private String created_at;
+
+    @JsonProperty("updated_on")
+    private String updated_at;
+
+    public String getPlatform() {
+        return platform;
+    }
+
+    public void setPlatform(String platform) {
+        this.platform = platform;
+    }
+
+    public String getFull_name() {
+        return full_name;
+    }
+
+    public void setFull_name(String full_name) {
+        this.full_name = full_name;
+    }
 
     public int getStar_count() {
         return star_count;
@@ -22,19 +49,35 @@ public class GitlabRepoDto {
         this.star_count = star_count;
     }
 
-    public int getForks_count() {
-        return forks_count;
+    public int getFork_count() {
+        return fork_count;
     }
 
-    public void setForks_count(int forks_count) {
-        this.forks_count = forks_count;
+    public void setFork_count(int fork_count) {
+        this.fork_count = fork_count;
     }
 
-    public String getName() {
-        return full_name;
+    public String getDescription() {
+        return description;
     }
 
-    public void setName(String full_name) {
-        this.full_name = full_name;
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getCreated_at() {
+        return created_at;
+    }
+
+    public void setCreated_at(String created_at) {
+        this.created_at = created_at;
+    }
+
+    public String getUpdated_at() {
+        return updated_at;
+    }
+
+    public void setUpdated_at(String updated_at) {
+        this.updated_at = updated_at;
     }
 }

@@ -38,7 +38,7 @@ public class RepoDetailServiceImpl implements RepoDetailService{
             GitlabRepoDto gitlabRepoDto = gitlabApiService.acquireSingleRepo(full_name);
             if(gitlabRepoDto == null)
                 return repoInfo;
-            repoInfo.setFull_name(gitlabRepoDto.getName());
+            repoInfo.setFull_name(gitlabRepoDto.getFull_name());
             repoInfo.setStar_count(gitlabRepoDto.getStar_count());
         }
         else if(platform.equals("github")){

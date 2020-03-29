@@ -27,8 +27,6 @@ public class BitbucketRepoDto {
     @JsonProperty("updated_on")
     private String updated_at;
 
-    public BitbucketRepoDto() { }
-
     public String getPlatform() {
         return platform;
     }

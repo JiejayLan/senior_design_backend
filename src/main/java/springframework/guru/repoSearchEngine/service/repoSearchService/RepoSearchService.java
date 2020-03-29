@@ -13,11 +13,11 @@ public interface RepoSearchService {
 
     void searchGitlabRepo(ArrayList<RepoSearchItem> repos, String searchKey);
 
-    void acquireSingalGitlabRepo(ArrayList<RepoSearchItem> repos, Set<String> repo_links );
+    void acquireSingleGitlabRepo(ArrayList<RepoSearchItem> repos, Set<String> repo_links, final int MAX_REPO_NUM);
 
     void searchBitbucketRepo(ArrayList<RepoSearchItem> repos, String searchKey);
 
-    void acquireSingalBitbucketRepo(ArrayList<RepoSearchItem> repos, Set<String> repo_fullnames, final int MAX_REPO_NUM );
+    void acquireSingleBitbucketRepo(ArrayList<RepoSearchItem> repos, Set<String> repo_fullnames, final int MAX_REPO_NUM );
 
 
 }

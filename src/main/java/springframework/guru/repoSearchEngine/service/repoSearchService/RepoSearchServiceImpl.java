@@ -65,26 +65,29 @@ public class RepoSearchServiceImpl implements RepoSearchService {
     @Override
     public void searchGitlabRepo(ArrayList<RepoSearchItem> repos, String searchKey){
         try{
-            Set<String> repo_links = googleApiService.searchRepoLinks("gitlab", searchKey, 1);
-            if(repo_links == null)
-                return;
-            acquireSingalGitlabRepo(repos, repo_links);
+            final int MAX_REPO_NUM = repos.size() + 10;
+            for(int page = 0; page <= MAX_GOOGLE_PAGE; page++){
+                if(repos.size() >= MAX_REPO_NUM)
+                    return;
+                Set<String> repo_links = googleApiService.searchRepoLinks("gitlab", searchKey, 1);
+                acquireSingleGitlabRepo(repos, repo_links, MAX_REPO_NUM);
+            }
         }
         catch (Exception ex){
             return;
         }
-
     }
 
     @Override
-    public void acquireSingalGitlabRepo(ArrayList<RepoSearchItem> repos, Set<String> repo_links ){
+    public void acquireSingleGitlabRepo(ArrayList<RepoSearchItem> repos, Set<String> repo_fullnames, final int MAX_REPO_NUM ){
         try{
-            for(String link : repo_links){
-                GitlabRepoDto gitlabRepoDto = gitlabApiService.acquireSingleRepo(link);
+            for(String fullname : repo_fullnames){
+                GitlabRepoDto gitlabRepoDto = gitlabApiService.acquireSingleRepo(fullname);
                 if (gitlabRepoDto ==null)
                     continue;
-                repos.add( new RepoSearchItem(
-                   ));
+                repos.add( new RepoSearchItem(gitlabRepoDto));
+                if(repos.size() >= MAX_REPO_NUM)
+                    break;
             }
         }
         catch(Exception ex){
@@ -104,7 +107,7 @@ public class RepoSearchServiceImpl implements RepoSearchService {
                         searchKey,
                         page*10+1
                 );
-                acquireSingalBitbucketRepo(repos, repo_fullnames, MAX_REPO_NUM);
+                acquireSingleBitbucketRepo(repos, repo_fullnames, MAX_REPO_NUM);
             }
         }
         catch (Exception ex){
@@ -113,7 +116,7 @@ public class RepoSearchServiceImpl implements RepoSearchService {
     }
 
     @Override
-    public void acquireSingalBitbucketRepo(ArrayList<RepoSearchItem> repos,
+    public void acquireSingleBitbucketRepo(ArrayList<RepoSearchItem> repos,
                                            Set<String> repo_fullnames,
                                            final int MAX_REPO_NUM){
         try{

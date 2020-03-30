@@ -10,6 +10,7 @@ import springframework.guru.repoSearchEngine.service.githubApiService.GithubApiS
 import springframework.guru.repoSearchEngine.service.gitlabApiService.GitlabApiService;
 import springframework.guru.repoSearchEngine.service.googleApiService.GoogleApiService;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Set;
 
 @Service
@@ -65,11 +66,12 @@ public class RepoSearchServiceImpl implements RepoSearchService {
     @Override
     public void searchGitlabRepo(ArrayList<RepoSearchItem> repos, String searchKey){
         try{
+            HashSet<String>  all_fullnames = new HashSet<>();
             final int MAX_REPO_NUM = repos.size() + 10;
             for(int page = 0; page <= MAX_GOOGLE_PAGE; page++){
                 if(repos.size() >= MAX_REPO_NUM)
                     return;
-                Set<String> repo_links = googleApiService.searchRepoLinks("gitlab", searchKey, 1);
+                Set<String> repo_links = googleApiService.searchRepoLinks(all_fullnames,"gitlab", searchKey, page*10+1);
                 acquireSingleGitlabRepo(repos, repo_links, MAX_REPO_NUM);
             }
         }
@@ -99,10 +101,12 @@ public class RepoSearchServiceImpl implements RepoSearchService {
     public void searchBitbucketRepo(ArrayList<RepoSearchItem> repos, String searchKey){
         try{
             final int MAX_REPO_NUM = repos.size() + 10;
+            Set<String>  all_fullnames = new HashSet<>();
             for(int page = 0; page <= MAX_GOOGLE_PAGE; page++){
                 if(repos.size() >= MAX_REPO_NUM)
                     return;
                 Set<String> repo_fullnames = googleApiService.searchRepoLinks(
+                        all_fullnames,
                         "bitbucket",
                         searchKey,
                         page*10+1

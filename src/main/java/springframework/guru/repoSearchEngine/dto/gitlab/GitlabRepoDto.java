@@ -7,7 +7,7 @@ public class GitlabRepoDto {
 
     private String platform = "gitlab";
 
-    @JsonProperty("full_name")
+    @JsonProperty("path_with_namespace")
     private String full_name;
 
     @JsonProperty("star_count")
@@ -19,10 +19,10 @@ public class GitlabRepoDto {
     @JsonProperty("description")
     private String description;
 
-    @JsonProperty("created_on")
+    @JsonProperty("created_at")
     private String created_at;
 
-    @JsonProperty("updated_on")
+    @JsonProperty("last_activity_at")
     private String updated_at;
 
     public String getPlatform() {

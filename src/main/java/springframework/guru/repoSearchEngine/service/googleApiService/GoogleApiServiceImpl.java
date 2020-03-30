@@ -20,25 +20,23 @@ public class GoogleApiServiceImpl implements GoogleApiService{
     }
 
     @Override
-    public Set<String> searchRepoLinks(String platform, String searchKey, int start){
+    public Set<String> searchRepoLinks(Set<String> all_fullnames,String platform, String searchKey, int start){
         try{
             RestTemplate restTemplate = new RestTemplate();
             String request_url;
 
             if(platform == "gitlab")
                 request_url = GOOGLE_API_GITLAB_URL + "&q=" + searchKey +"&start=" + start;
-            else if(platform == "bitbucket")
-                request_url = GOOGLE_API_BITBUCKET_URL + "&q=" + searchKey +"&start=" + start;
             else
-                throw new IllegalArgumentException("Invalid platform argument");
+                request_url = GOOGLE_API_BITBUCKET_URL + "&q=" + searchKey +"&start=" + start;
 
             Set<String> repo_fullnames= new HashSet<>();
             GoogleApiDto googleApiDto = restTemplate.getForObject(request_url, GoogleApiDto.class);
             ArrayList<GoogleLink> googleLinks = googleApiDto.getItems();
-            extractFullname(repo_fullnames,googleLinks);
+            extractFullname(all_fullnames,repo_fullnames,googleLinks);
 
             if(repo_fullnames == null)
-                throw new InternalException("Invalid Connection");
+                throw new InternalException("Fail to Connect");
 
             return repo_fullnames;
         }
@@ -47,14 +45,18 @@ public class GoogleApiServiceImpl implements GoogleApiService{
         }
     }
     @Override
-    public void extractFullname(Set<String> repo_fullnames, ArrayList<GoogleLink> googleLinks){
+    public void extractFullname(Set<String> all_fullnames, Set<String> repo_fullnames, ArrayList<GoogleLink> googleLinks){
         try{
             for(int i =0; i < googleLinks.size(); i++){
                 String repo_link = googleLinks.get(i).getLink();
                 String[] split_link = repo_link.split("/");
                 if(split_link.length <= 4)
                     continue;
-                repo_fullnames.add(split_link[3] + "/" +split_link[4]);
+                String new_fullname = split_link[3] + "/" +split_link[4];
+                if(!all_fullnames.contains(new_fullname)){
+                    repo_fullnames.add(new_fullname);
+                    all_fullnames.add(new_fullname);
+                }
             }
         }
         catch (Exception ex) {

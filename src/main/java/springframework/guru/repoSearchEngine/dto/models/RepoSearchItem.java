@@ -26,7 +26,7 @@ public class RepoSearchItem {
         this.language = githubItem.getLanguage();
         this.star_count = githubItem.getStar_count();
         this.description = githubItem.getDescription();
-        this.updated_at = githubItem.getUpdated_at();
+        this.updated_at = githubItem.getUpdated_at().substring(0,10);
     }
 
     public RepoSearchItem(BitbucketRepoDto bitbucketRepoDto) {
@@ -34,14 +34,14 @@ public class RepoSearchItem {
         this.full_name = bitbucketRepoDto.getFull_name();
         this.language = bitbucketRepoDto.getLanguage();
         this.description = bitbucketRepoDto.getDescription();
-        this.updated_at = bitbucketRepoDto.getUpdated_at();
+        this.updated_at = bitbucketRepoDto.getUpdated_at().substring(0,10);
     }
 
     public RepoSearchItem(GitlabRepoDto gitlabRepoDto) {
         this.platform = "gitlab";
         this.full_name = gitlabRepoDto.getFull_name();
         this.description = gitlabRepoDto.getDescription();
-        this.updated_at = gitlabRepoDto.getUpdated_at();
+        this.updated_at = gitlabRepoDto.getUpdated_at().substring(0,10);
     }
 
 

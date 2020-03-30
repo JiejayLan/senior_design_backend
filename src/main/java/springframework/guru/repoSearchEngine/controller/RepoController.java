@@ -2,6 +2,8 @@ package springframework.guru.repoSearchEngine.controller;
 import org.springframework.http.HttpStatus;
 import springframework.guru.repoSearchEngine.dto.models.RepoDetail;
 import springframework.guru.repoSearchEngine.dto.models.RepoSearchItem;
+import springframework.guru.repoSearchEngine.exception.ErrorMsg;
+import springframework.guru.repoSearchEngine.exception.InternalException;
 import springframework.guru.repoSearchEngine.service.repoSearchService.RepoSearchService;
 import springframework.guru.repoSearchEngine.service.repoDetailService.RepoDetailService;
 import org.slf4j.Logger;
@@ -9,7 +11,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.reactive.function.client.WebClientResponseException;
 import java.util.ArrayList;
 
 @RestController
@@ -28,19 +29,31 @@ public class RepoController {
 
     @GetMapping("/search")
     public ResponseEntity<ArrayList<RepoSearchItem>> searchRepos(@RequestParam String searchKey) {
-        ArrayList<RepoSearchItem> results = repoSearchService.searchRepo(searchKey);
-        return new ResponseEntity<>(results, HttpStatus.OK);
+        try{
+            ArrayList<RepoSearchItem> results = repoSearchService.searchRepo(searchKey);
+            return new ResponseEntity<>(results, HttpStatus.OK);
+        }
+        catch (Exception ex){
+            throw ex;
+        }
     }
 
     @GetMapping("/detail")
-    public RepoDetail getSingleRepo(@RequestParam String platform, @RequestParam String full_name) {
-        return repoDetailService.acquireRepoDetail(platform, full_name);
+    public ResponseEntity<RepoDetail> getSingleRepo(@RequestParam String platform, @RequestParam String full_name) {
+        try{
+            RepoDetail repoDetail= repoDetailService.acquireRepoDetail(platform, full_name);
+            return new ResponseEntity<>(repoDetail, HttpStatus.OK);
+        }
+        catch (Exception ex){
+            throw ex;
+        }
     }
 
-    @ExceptionHandler(WebClientResponseException.class)
-    public ResponseEntity<String> handleWebClientResponseException(WebClientResponseException ex) {
-        logger.error("Error from WebClient - Status {}, Body {}", ex.getRawStatusCode(),
-                ex.getResponseBodyAsString(), ex);
-        return ResponseEntity.status(ex.getRawStatusCode()).body(ex.getResponseBodyAsString());
+    @ExceptionHandler(InternalException.class)
+    public ResponseEntity<ErrorMsg>  handleError(InternalException ex) {
+        logger.error("Error: - Status {}, Body {}", ex.getMessage(),
+                ex.getMessage());
+        ErrorMsg responseError = new ErrorMsg(ex);
+        return ResponseEntity.status(ex.getStatus_code()).body(responseError);
     }
 }

@@ -1,4 +1,4 @@
-package springframework.guru.repoSearchEngine.dto.bitbucket;
+package springframework.guru.repoSearchEngine.dto.bitbucket.bitbucketCommit;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class BitbucketCommitsDto {

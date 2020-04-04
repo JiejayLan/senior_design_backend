@@ -1,5 +1,5 @@
 package springframework.guru.repoSearchEngine.service.bitbucketApiService;
-import springframework.guru.repoSearchEngine.dto.bitbucket.BitbucketCommitsDto;
+import springframework.guru.repoSearchEngine.dto.bitbucket.bitbucketCommit.BitbucketCommitsDto;
 import springframework.guru.repoSearchEngine.dto.bitbucket.BitbucketRepoDto;
 
 import java.util.ArrayList;

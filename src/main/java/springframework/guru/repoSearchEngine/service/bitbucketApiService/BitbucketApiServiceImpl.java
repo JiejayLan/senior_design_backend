@@ -4,8 +4,8 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
-import springframework.guru.repoSearchEngine.dto.bitbucket.BitbucketCommit;
-import springframework.guru.repoSearchEngine.dto.bitbucket.BitbucketCommitsDto;
+import springframework.guru.repoSearchEngine.dto.bitbucket.bitbucketCommit.BitbucketCommit;
+import springframework.guru.repoSearchEngine.dto.bitbucket.bitbucketCommit.BitbucketCommitsDto;
 import springframework.guru.repoSearchEngine.dto.bitbucket.BitbucketRepoDto;
 import springframework.guru.repoSearchEngine.exception.InternalException;
 

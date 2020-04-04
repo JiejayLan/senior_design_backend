@@ -7,7 +7,6 @@ import springframework.guru.repoSearchEngine.dto.gitlab.GitlabRepoDto;
 import springframework.guru.repoSearchEngine.service.bitbucketApiService.BitbucketApiService;
 import springframework.guru.repoSearchEngine.service.githubApiService.GithubApiService;
 import springframework.guru.repoSearchEngine.service.gitlabApiService.GitlabApiService;
-
 import java.util.ArrayList;
 
 @Service
@@ -27,34 +26,36 @@ public class RepoDetailServiceImpl implements RepoDetailService{
     @Override
     public RepoDetail acquireRepoDetail(String platform, String full_name){
         try{
-            RepoDetail repoInfo = new RepoDetail();
+            RepoDetail repoInfo = acquireRepoMeta(platform, full_name);
+            ArrayList<String> commits = acquireRepoCommits(platform, full_name);
+            repoInfo.setCommits(commits);
+            return repoInfo;
+        }
+        catch(Exception ex){
+            throw ex;
+        }
+    }
+
+    @Override
+    public RepoDetail acquireRepoMeta(String platform, String full_name) {
+        try{
+            RepoDetail repoInfo = null;
             if(platform.equals("bitbucket")) {
                 BitbucketRepoDto bitbucketRepoDto= bitbucketApiService.acquireSingleRepo(full_name);
-                if(bitbucketRepoDto == null)
-                    return repoInfo;
-                repoInfo.setFull_name(bitbucketRepoDto.getFull_name());
-                repoInfo.setLanguage(bitbucketRepoDto.getLanguage());
+                repoInfo = new RepoDetail(bitbucketRepoDto);
             }
             else if(platform.equals("gitlab")){
+                repoInfo = new RepoDetail();
                 GitlabRepoDto gitlabRepoDto = gitlabApiService.acquireSingleRepo(full_name);
-                if(gitlabRepoDto == null)
-                    return repoInfo;
                 repoInfo.setFull_name(gitlabRepoDto.getFull_name());
                 repoInfo.setStar_count(gitlabRepoDto.getStar_count());
             }
             else if(platform.equals("github")){
+                repoInfo = new RepoDetail();
                 GithubItem githubItem = githubAPIService.acquireSingleRepo(full_name);
-                if(githubItem == null)
-                    return repoInfo;
                 repoInfo.setFull_name(githubItem.getFull_name());
                 repoInfo.setLanguage(githubItem.getLanguage());
             }
-            else
-                return repoInfo;
-
-            ArrayList<String> commits = acquireRepoCommits(platform, full_name);
-            repoInfo.setCommits(commits);
-
             return repoInfo;
         }
         catch(Exception ex){
@@ -87,7 +88,6 @@ public class RepoDetailServiceImpl implements RepoDetailService{
                 if(commits_single_page.size() < MAX_COMMITS_PER_PAGE)
                     break;
             }
-
             return commits_total;
         }
         catch(Exception ex){
@@ -95,6 +95,3 @@ public class RepoDetailServiceImpl implements RepoDetailService{
         }
     }
 }
-
-
-

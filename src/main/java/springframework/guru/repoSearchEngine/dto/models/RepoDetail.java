@@ -1,5 +1,7 @@
 package springframework.guru.repoSearchEngine.dto.models;
 
+import springframework.guru.repoSearchEngine.dto.bitbucket.BitbucketRepoDto;
+
 import java.util.ArrayList;
 
 public class RepoDetail {
@@ -23,9 +25,24 @@ public class RepoDetail {
 
     private String updated_at;
 
+    private Owner owner;
+
     private ArrayList<String> commits;
 
     public RepoDetail() {
+    }
+
+    public RepoDetail(BitbucketRepoDto bitbucketRepoDto) {
+        this.platform = bitbucketRepoDto.getPlatform();
+        this.web_url = "https://gitlab.com/" + bitbucketRepoDto.getFull_name();
+        this.full_name = bitbucketRepoDto.getFull_name();
+        this.language = bitbucketRepoDto.getLanguage();
+        this.size = bitbucketRepoDto.getSize();
+        this.description = bitbucketRepoDto.getDescription();
+        this.created_at = bitbucketRepoDto.getCreated_at();
+        this.updated_at = bitbucketRepoDto.getUpdated_at();
+        this.owner  = new Owner(bitbucketRepoDto.getOwner()) ;
+
     }
 
     public String getPlatform() {

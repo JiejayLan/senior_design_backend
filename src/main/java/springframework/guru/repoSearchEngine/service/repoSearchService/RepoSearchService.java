@@ -1,6 +1,6 @@
-package springframework.guru.repoSearchEngine.service;
+package springframework.guru.repoSearchEngine.service.repoSearchService;
 
-import springframework.guru.repoSearchEngine.dto.RepoSearchItem;
+import springframework.guru.repoSearchEngine.dto.models.RepoSearchItem;
 
 import java.util.ArrayList;
 import java.util.Set;
@@ -13,10 +13,12 @@ public interface RepoSearchService {
 
     void searchGitlabRepo(ArrayList<RepoSearchItem> repos, String searchKey);
 
+    void acquireSingleGitlabRepo(ArrayList<RepoSearchItem> repos, Set<String> repo_links, final int MAX_REPO_NUM);
+
     void searchBitbucketRepo(ArrayList<RepoSearchItem> repos, String searchKey);
 
-    void acquireBitbucketRepoByLink(ArrayList<RepoSearchItem> repos,Set<String> repo_links );
+    void acquireSingleBitbucketRepo(ArrayList<RepoSearchItem> repos, Set<String> repo_fullnames, final int MAX_REPO_NUM );
 
-    void acquireGitlabRepoByLink(ArrayList<RepoSearchItem> repos,Set<String> repo_links );
+
 }
 

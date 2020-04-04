@@ -1,31 +1,32 @@
-package springframework.guru.repoSearchEngine.dto.bitbucket;
+package springframework.guru.repoSearchEngine.dto.models;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.ArrayList;
 
-public class BitbucketRepoDto {
+public class RepoDetail {
+    private String platform;
 
-    private String platform = "bitbucket";
-
-    @JsonProperty("web_url")
     private String web_url;
 
-    @JsonProperty("full_name")
     private String full_name;
 
-    @JsonProperty("language")
     private String language;
 
-    @JsonProperty("size")
     private int size;
 
-    @JsonProperty("description")
+    private int star_count;
+
+    private int fork_count ;
+
     private String description;
 
-    @JsonProperty("created_on")
     private String created_at;
 
-    @JsonProperty("updated_on")
     private String updated_at;
+
+    private ArrayList<String> commits;
+
+    public RepoDetail() {
+    }
 
     public String getPlatform() {
         return platform;
@@ -67,6 +68,22 @@ public class BitbucketRepoDto {
         this.size = size;
     }
 
+    public int getStar_count() {
+        return star_count;
+    }
+
+    public void setStar_count(int star_count) {
+        this.star_count = star_count;
+    }
+
+    public int getFork_count() {
+        return fork_count;
+    }
+
+    public void setFork_count(int fork_count) {
+        this.fork_count = fork_count;
+    }
+
     public String getDescription() {
         return description;
     }
@@ -89,5 +106,13 @@ public class BitbucketRepoDto {
 
     public void setUpdated_at(String updated_at) {
         this.updated_at = updated_at;
+    }
+
+    public ArrayList<String> getCommits() {
+        return commits;
+    }
+
+    public void setCommits(ArrayList<String> commits) {
+        this.commits = commits;
     }
 }

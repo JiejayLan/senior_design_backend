@@ -1,5 +1,7 @@
 package springframework.guru.repoSearchEngine.controller;
 import org.springframework.http.HttpStatus;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.reactive.function.client.WebClientResponseException;
 import springframework.guru.repoSearchEngine.dto.models.RepoDetail;
 import springframework.guru.repoSearchEngine.dto.models.RepoSearchItem;
 import springframework.guru.repoSearchEngine.exception.ErrorMsg;
@@ -11,8 +13,12 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
+import javax.validation.constraints.Pattern;
 import java.util.ArrayList;
 
+@Validated
 @RestController
 @RequestMapping("/api/v1")
 public class RepoController {
@@ -39,7 +45,10 @@ public class RepoController {
     }
 
     @GetMapping("/detail")
-    public ResponseEntity<RepoDetail> getSingleRepo(@RequestParam String platform, @RequestParam String full_name) {
+    public ResponseEntity<RepoDetail> getSingleRepo(
+            @Valid @Pattern(regexp = "^(github | gitlab | bitbucket)$",message = "Platform Param Value Error")
+            @RequestParam String platform,
+            @RequestParam String full_name) {
         try{
             RepoDetail repoDetail= repoDetailService.acquireRepoDetail(platform, full_name);
             return new ResponseEntity<>(repoDetail, HttpStatus.OK);
@@ -50,10 +59,17 @@ public class RepoController {
     }
 
     @ExceptionHandler(InternalException.class)
-    public ResponseEntity<ErrorMsg>  handleError(InternalException ex) {
+    public ResponseEntity<ErrorMsg> handleError(InternalException ex) {
         logger.error("Error: - Status {}, Body {}", ex.getMessage(),
                 ex.getMessage());
         ErrorMsg responseError = new ErrorMsg(ex);
         return ResponseEntity.status(ex.getStatus_code()).body(responseError);
+    }
+
+    @ExceptionHandler(WebClientResponseException.class)
+    public ResponseEntity<String> DefaultErrorWebExceptionHandler(WebClientResponseException ex) {
+        logger.error("Error from WebClient - Status {}, Body {}", ex.getRawStatusCode(),
+                ex.getResponseBodyAsString(), ex);
+        return ResponseEntity.status(ex.getRawStatusCode()).body(ex.getResponseBodyAsString());
     }
 }

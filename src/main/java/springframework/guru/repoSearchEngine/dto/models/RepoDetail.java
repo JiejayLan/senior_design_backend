@@ -34,7 +34,7 @@ public class RepoDetail {
 
     public RepoDetail(BitbucketRepoDto bitbucketRepoDto) {
         this.platform = bitbucketRepoDto.getPlatform();
-        this.web_url = "https://gitlab.com/" + bitbucketRepoDto.getFull_name();
+        this.web_url = "https://bitbucket.org/" + bitbucketRepoDto.getFull_name();
         this.full_name = bitbucketRepoDto.getFull_name();
         this.language = bitbucketRepoDto.getLanguage();
         this.size = bitbucketRepoDto.getSize();

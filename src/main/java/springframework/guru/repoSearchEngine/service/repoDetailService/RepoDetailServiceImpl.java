@@ -75,12 +75,10 @@ public class RepoDetailServiceImpl implements RepoDetailService{
                 ArrayList<String> commits_single_page =new ArrayList<>();
                 if(platform.equals("bitbucket"))
                     commits_single_page = bitbucketApiService.getRepoCommits(full_name, current_page++);
-                else if(platform.equals("gitlab")){
+                else if(platform.equals("gitlab"))
                     commits_single_page = gitlabApiService.getRepoCommits(full_name, current_page++);
-                }
-                else if(platform.equals("github")){
+                else if(platform.equals("github"))
                     commits_single_page = githubAPIService.getRepoCommits(full_name,current_page++);
-                }
                 commits_total.addAll(commits_single_page);
 
                 if(commits_total.size() > 300 - MAX_COMMITS_PER_PAGE)

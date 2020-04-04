@@ -1,4 +1,4 @@
-package springframework.guru.repoSearchEngine.dto.bitbucket.bitbucketCommit;
+package springframework.guru.repoSearchEngine.dto.bitbucket;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -6,9 +6,7 @@ public class BitbucketCommit {
     @JsonProperty("date")
     private String date;
 
-    public BitbucketCommit() {
-
-    }
+    public BitbucketCommit() { }
 
     public String getDate() {
         return date;

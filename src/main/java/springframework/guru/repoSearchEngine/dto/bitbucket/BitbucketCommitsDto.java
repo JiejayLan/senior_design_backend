@@ -1,12 +1,11 @@
-package springframework.guru.repoSearchEngine.dto.bitbucket.bitbucketCommit;
+package springframework.guru.repoSearchEngine.dto.bitbucket;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class BitbucketCommitsDto {
     @JsonProperty("values")
     private BitbucketCommit[] commits;
 
-    public BitbucketCommitsDto() {
-    }
+    public BitbucketCommitsDto() { }
 
     public BitbucketCommit[] getCommits() {
         return commits;
@@ -15,5 +14,4 @@ public class BitbucketCommitsDto {
     public void setCommits(BitbucketCommit[] commits) {
         this.commits = commits;
     }
-
 }

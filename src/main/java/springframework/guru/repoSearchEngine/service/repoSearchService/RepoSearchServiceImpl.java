@@ -43,9 +43,8 @@ public class RepoSearchServiceImpl implements RepoSearchService {
             return repos;
         }
         catch (Exception ex){
-            return null;
+            throw ex;
         }
-
     }
 
     @Override
@@ -59,7 +58,7 @@ public class RepoSearchServiceImpl implements RepoSearchService {
             }
         }
         catch (Exception ex){
-            return;
+            throw ex;
         }
     }
 
@@ -71,12 +70,14 @@ public class RepoSearchServiceImpl implements RepoSearchService {
             for(int page = 0; page <= MAX_GOOGLE_PAGE; page++){
                 if(repos.size() >= MAX_REPO_NUM)
                     return;
-                Set<String> repo_links = googleApiService.searchRepoLinks(all_fullnames,"gitlab", searchKey, page*10+1);
-                acquireSingleGitlabRepo(repos, repo_links, MAX_REPO_NUM);
+                Set<String> repo_fullnames = googleApiService.searchRepoLinks(all_fullnames,"gitlab", searchKey, page*10+1);
+                if(repo_fullnames == null)
+                    break;
+                acquireSingleGitlabRepo(repos, repo_fullnames, MAX_REPO_NUM);
             }
         }
         catch (Exception ex){
-            return;
+            throw ex;
         }
     }
 
@@ -85,14 +86,12 @@ public class RepoSearchServiceImpl implements RepoSearchService {
         try{
             for(String fullname : repo_fullnames){
                 GitlabRepoDto gitlabRepoDto = gitlabApiService.acquireSingleRepo(fullname);
-                if (gitlabRepoDto ==null)
-                    continue;
                 repos.add( new RepoSearchItem(gitlabRepoDto));
                 if(repos.size() >= MAX_REPO_NUM)
                     break;
             }
         }
-        catch(Exception ex){
+        catch (Exception ex){
             return;
         }
     }
@@ -111,11 +110,13 @@ public class RepoSearchServiceImpl implements RepoSearchService {
                         searchKey,
                         page*10+1
                 );
+                if(repo_fullnames == null)
+                    break;
                 acquireSingleBitbucketRepo(repos, repo_fullnames, MAX_REPO_NUM);
             }
         }
         catch (Exception ex){
-            return;
+            throw ex;
         }
     }
 
@@ -126,15 +127,13 @@ public class RepoSearchServiceImpl implements RepoSearchService {
         try{
             for(String repo_fullname : repo_fullnames){
                 BitbucketRepoDto bitbucketRepoDto = bitbucketApiService.acquireSingleRepo(repo_fullname);
-                if (bitbucketRepoDto == null)
-                    continue;
                 repos.add( new RepoSearchItem(bitbucketRepoDto));
                 if(repos.size() >= MAX_REPO_NUM)
                     break;
             }
         }
-        catch(Exception ex){
-            throw ex;
+        catch (Exception ex){
+            return;
         }
     }
 }

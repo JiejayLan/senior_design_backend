@@ -15,6 +15,9 @@ public class InternalException extends RuntimeException{
         this.status_code = status_code;
     }
 
+    public InternalException(String message) {
+        super(message);
+    }
 
     public HttpStatus getStatus_code() {
         return status_code;

@@ -1,13 +1,15 @@
 package springframework.guru.repoSearchEngine.service.googleApiService;
-import jdk.nashorn.internal.runtime.regexp.joni.exception.InternalException;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import springframework.guru.repoSearchEngine.dto.googleApi.GoogleApiDto;
 import springframework.guru.repoSearchEngine.dto.googleApi.GoogleLink;
+import springframework.guru.repoSearchEngine.exception.InternalException;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
+
 @Service
 public class GoogleApiServiceImpl implements GoogleApiService{
     private String GOOGLE_API_GITLAB_URL;
@@ -33,17 +35,17 @@ public class GoogleApiServiceImpl implements GoogleApiService{
             Set<String> repo_fullnames= new HashSet<>();
             GoogleApiDto googleApiDto = restTemplate.getForObject(request_url, GoogleApiDto.class);
             ArrayList<GoogleLink> googleLinks = googleApiDto.getItems();
+            if(googleLinks == null)
+                return null;
             extractFullname(all_fullnames,repo_fullnames,googleLinks);
-
-            if(repo_fullnames == null)
-                throw new InternalException("Fail to Connect");
 
             return repo_fullnames;
         }
-        catch (Exception ex) {
+        catch (Exception ex){
             throw ex;
         }
     }
+
     @Override
     public void extractFullname(Set<String> all_fullnames, Set<String> repo_fullnames, ArrayList<GoogleLink> googleLinks){
         try{
@@ -60,7 +62,7 @@ public class GoogleApiServiceImpl implements GoogleApiService{
             }
         }
         catch (Exception ex) {
-            throw ex;
+            throw new InternalException(HttpStatus.INTERNAL_SERVER_ERROR, "GOOGLE API INTERNAL_SERVER_ERROR");
         }
     }
 

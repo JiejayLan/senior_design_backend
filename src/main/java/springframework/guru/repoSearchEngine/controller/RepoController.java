@@ -1,7 +1,6 @@
 package springframework.guru.repoSearchEngine.controller;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.reactive.function.client.WebClientResponseException;
 import springframework.guru.repoSearchEngine.dto.models.RepoDetail;
 import springframework.guru.repoSearchEngine.dto.models.RepoSearchItem;
 import springframework.guru.repoSearchEngine.exception.ErrorMsg;
@@ -63,13 +62,14 @@ public class RepoController {
         logger.error("Error: - Status {}, Body {}", ex.getMessage(),
                 ex.getMessage());
         ErrorMsg responseError = new ErrorMsg(ex);
-        return ResponseEntity.status(ex.getStatus_code()).body(responseError);
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(responseError);
     }
 
-    @ExceptionHandler(WebClientResponseException.class)
-    public ResponseEntity<String> DefaultErrorWebExceptionHandler(WebClientResponseException ex) {
-        logger.error("Error from WebClient - Status {}, Body {}", ex.getRawStatusCode(),
-                ex.getResponseBodyAsString(), ex);
-        return ResponseEntity.status(ex.getRawStatusCode()).body(ex.getResponseBodyAsString());
+    @ExceptionHandler(Exception.class)
+    public ResponseEntity<ErrorMsg> handleError(Exception ex) {
+        logger.error("Error: - Status {}, Body {}", ex.getMessage(),
+                ex.getMessage());
+        ErrorMsg responseError = new ErrorMsg(ex);
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(responseError);
     }
 }

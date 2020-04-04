@@ -45,7 +45,7 @@ public class RepoController {
 
     @GetMapping("/detail")
     public ResponseEntity<RepoDetail> getSingleRepo(
-            @Valid @Pattern(regexp = "^(github | gitlab | bitbucket)$",message = "Platform Param Value Error")
+            @Valid @Pattern(regexp = "^(github|gitlab|bitbucket)$",message = "Platform Param Value Error")
             @RequestParam String platform,
             @RequestParam String full_name) {
         try{

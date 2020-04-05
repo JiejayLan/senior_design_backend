@@ -6,9 +6,7 @@ public class BitbucketCommit {
     @JsonProperty("date")
     private String date;
 
-    public BitbucketCommit() {
-
-    }
+    public BitbucketCommit() { }
 
     public String getDate() {
         return date;

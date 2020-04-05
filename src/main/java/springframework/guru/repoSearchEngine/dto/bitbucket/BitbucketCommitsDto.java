@@ -5,8 +5,7 @@ public class BitbucketCommitsDto {
     @JsonProperty("values")
     private BitbucketCommit[] commits;
 
-    public BitbucketCommitsDto() {
-    }
+    public BitbucketCommitsDto() { }
 
     public BitbucketCommit[] getCommits() {
         return commits;
@@ -15,5 +14,4 @@ public class BitbucketCommitsDto {
     public void setCommits(BitbucketCommit[] commits) {
         this.commits = commits;
     }
-
 }

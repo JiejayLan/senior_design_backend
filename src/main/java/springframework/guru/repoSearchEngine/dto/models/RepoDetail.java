@@ -1,8 +1,8 @@
 package springframework.guru.repoSearchEngine.dto.models;
 
 import springframework.guru.repoSearchEngine.dto.bitbucket.BitbucketRepoDto;
+import springframework.guru.repoSearchEngine.dto.github.GithubItem;
 import springframework.guru.repoSearchEngine.dto.gitlab.GitlabRepoDto;
-
 import java.util.ArrayList;
 
 public class RepoDetail {
@@ -32,10 +32,25 @@ public class RepoDetail {
 
     private String profile_url;
 
-
     private ArrayList<String> commits;
 
     public RepoDetail() {
+    }
+
+    public RepoDetail(GithubItem githubItem){
+        this.platform = githubItem.getPlatform();
+        this.web_url = githubItem.getWeb_url();
+        this.full_name = githubItem.getFull_name();
+        this.language = githubItem.getLanguage();
+        this.size = githubItem.getSize();
+        this.star_count = githubItem.getStar_count();
+        this.fork_count =githubItem.getFork_count();
+        this.description = githubItem.getDescription();
+        this.created_at = githubItem.getCreated_at().substring(0,10);
+        this.updated_at = githubItem.getUpdated_at().substring(0,10);
+        this.owner_name = githubItem.getOwner_name();
+        this.avatar_url = githubItem.getAvatar_url();
+        this.profile_url = githubItem.getProfile_url();
     }
 
     public RepoDetail(BitbucketRepoDto bitbucketRepoDto) {

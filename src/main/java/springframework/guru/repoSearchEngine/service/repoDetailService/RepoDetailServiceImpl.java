@@ -49,10 +49,8 @@ public class RepoDetailServiceImpl implements RepoDetailService{
                 repoInfo = new RepoDetail(gitlabRepoDto);
             }
             else if(platform.equals("github")){
-                repoInfo = new RepoDetail();
                 GithubItem githubItem = githubAPIService.acquireSingleRepo(full_name);
-                repoInfo.setFull_name(githubItem.getFull_name());
-                repoInfo.setLanguage(githubItem.getLanguage());
+                repoInfo = new RepoDetail(githubItem);
             }
             return repoInfo;
         }

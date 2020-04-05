@@ -8,7 +8,6 @@ import springframework.guru.repoSearchEngine.dto.bitbucket.BitbucketCommit;
 import springframework.guru.repoSearchEngine.dto.bitbucket.BitbucketCommitsDto;
 import springframework.guru.repoSearchEngine.dto.bitbucket.BitbucketRepoDto;
 import springframework.guru.repoSearchEngine.exception.InternalException;
-
 import java.util.ArrayList;
 
 @Service

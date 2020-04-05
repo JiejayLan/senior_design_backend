@@ -1,4 +1,6 @@
 package springframework.guru.repoSearchEngine.exception;
+import org.springframework.http.HttpStatus;
+
 import java.sql.Timestamp;
 
 public class ErrorMsg {
@@ -7,7 +9,12 @@ public class ErrorMsg {
     private Timestamp timestamp;
 
     public ErrorMsg(Exception ex) {
-        this.status = 500;
+        this.message = ex.getMessage();
+        this.timestamp = new Timestamp(System.currentTimeMillis());
+    }
+
+    public ErrorMsg(Exception ex, HttpStatus status) {
+        this.status = status.value();
         this.message = ex.getMessage();
         this.timestamp = new Timestamp(System.currentTimeMillis());
     }
@@ -22,8 +29,8 @@ public class ErrorMsg {
         return status;
     }
 
-    public void setStatus(int status) {
-        this.status = status;
+    public void setStatus(HttpStatus status) {
+        this.status = status.value();
     }
 
     public String getMessage() {

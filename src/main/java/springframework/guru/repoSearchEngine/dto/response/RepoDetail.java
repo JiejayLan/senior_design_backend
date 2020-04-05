@@ -1,4 +1,4 @@
-package springframework.guru.repoSearchEngine.dto.models;
+package springframework.guru.repoSearchEngine.dto.response;
 
 import springframework.guru.repoSearchEngine.dto.bitbucket.BitbucketRepoDto;
 import springframework.guru.repoSearchEngine.dto.github.GithubItem;

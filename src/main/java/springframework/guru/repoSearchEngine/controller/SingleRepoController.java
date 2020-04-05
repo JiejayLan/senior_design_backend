@@ -6,7 +6,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-import springframework.guru.repoSearchEngine.dto.models.RepoDetail;
+import springframework.guru.repoSearchEngine.dto.response.RepoDetail;
 import springframework.guru.repoSearchEngine.service.repoDetailService.RepoDetailService;
 import springframework.guru.repoSearchEngine.service.repoSearchService.RepoSearchService;
 import javax.validation.Valid;

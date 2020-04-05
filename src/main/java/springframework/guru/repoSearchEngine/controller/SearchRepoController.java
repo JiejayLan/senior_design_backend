@@ -1,7 +1,7 @@
 package springframework.guru.repoSearchEngine.controller;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.annotation.Validated;
-import springframework.guru.repoSearchEngine.dto.models.RepoSearchItem;
+import springframework.guru.repoSearchEngine.dto.response.RepoSearchItem;
 import springframework.guru.repoSearchEngine.service.repoSearchService.RepoSearchService;
 import springframework.guru.repoSearchEngine.service.repoDetailService.RepoDetailService;
 import org.slf4j.Logger;

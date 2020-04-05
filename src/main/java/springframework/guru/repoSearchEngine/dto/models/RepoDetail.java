@@ -1,6 +1,7 @@
 package springframework.guru.repoSearchEngine.dto.models;
 
 import springframework.guru.repoSearchEngine.dto.bitbucket.BitbucketRepoDto;
+import springframework.guru.repoSearchEngine.dto.gitlab.GitlabRepoDto;
 
 import java.util.ArrayList;
 
@@ -25,7 +26,12 @@ public class RepoDetail {
 
     private String updated_at;
 
-    private Owner owner;
+    private String owner_name;
+
+    private String avatar_url;
+
+    private String profile_url;
+
 
     private ArrayList<String> commits;
 
@@ -39,10 +45,25 @@ public class RepoDetail {
         this.language = bitbucketRepoDto.getLanguage();
         this.size = bitbucketRepoDto.getSize();
         this.description = bitbucketRepoDto.getDescription();
-        this.created_at = bitbucketRepoDto.getCreated_at();
-        this.updated_at = bitbucketRepoDto.getUpdated_at();
-        this.owner  = new Owner(bitbucketRepoDto.getOwner()) ;
+        this.created_at = bitbucketRepoDto.getCreated_at().substring(0,10);
+        this.updated_at = bitbucketRepoDto.getUpdated_at().substring(0,10);
+        this.owner_name = bitbucketRepoDto.getOwner().getOwner_name();
+        this.avatar_url = bitbucketRepoDto.getOwner().getAvator();
+        this.profile_url = bitbucketRepoDto.getOwner().getProfile();
+    }
 
+    public RepoDetail(GitlabRepoDto gitlabRepoDto){
+        this.platform = gitlabRepoDto.getPlatform();
+        this.web_url = "https://gitlab.com/" + gitlabRepoDto.getFull_name();
+        this.full_name = gitlabRepoDto.getFull_name();
+        this.star_count = gitlabRepoDto.getStar_count();
+        this.fork_count = gitlabRepoDto.getFork_count();
+        this.description = gitlabRepoDto.getDescription();
+        this.created_at = gitlabRepoDto.getCreated_at().substring(0,10);
+        this.updated_at = gitlabRepoDto.getUpdated_at().substring(0,10);
+        this.owner_name = gitlabRepoDto.getOwner_name();
+        this.avatar_url = "https://assets.gitlab-static.net/"+gitlabRepoDto.getAvatar_url();
+        this.profile_url = gitlabRepoDto.getProfile_url();
     }
 
     public String getPlatform() {
@@ -123,6 +144,30 @@ public class RepoDetail {
 
     public void setUpdated_at(String updated_at) {
         this.updated_at = updated_at;
+    }
+
+    public String getOwner_name() {
+        return owner_name;
+    }
+
+    public void setOwner_name(String owner_name) {
+        this.owner_name = owner_name;
+    }
+
+    public String getAvatar_url() {
+        return avatar_url;
+    }
+
+    public void setAvatar_url(String avatar_url) {
+        this.avatar_url = avatar_url;
+    }
+
+    public String getProfile_url() {
+        return profile_url;
+    }
+
+    public void setProfile_url(String profile_url) {
+        this.profile_url = profile_url;
     }
 
     public ArrayList<String> getCommits() {

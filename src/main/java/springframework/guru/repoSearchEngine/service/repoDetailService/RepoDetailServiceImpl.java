@@ -45,10 +45,8 @@ public class RepoDetailServiceImpl implements RepoDetailService{
                 repoInfo = new RepoDetail(bitbucketRepoDto);
             }
             else if(platform.equals("gitlab")){
-                repoInfo = new RepoDetail();
                 GitlabRepoDto gitlabRepoDto = gitlabApiService.acquireSingleRepo(full_name);
-                repoInfo.setFull_name(gitlabRepoDto.getFull_name());
-                repoInfo.setStar_count(gitlabRepoDto.getStar_count());
+                repoInfo = new RepoDetail(gitlabRepoDto);
             }
             else if(platform.equals("github")){
                 repoInfo = new RepoDetail();

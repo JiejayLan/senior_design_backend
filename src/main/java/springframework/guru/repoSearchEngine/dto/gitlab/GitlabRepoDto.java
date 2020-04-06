@@ -1,7 +1,39 @@
 package springframework.guru.repoSearchEngine.dto.gitlab;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import java.util.ArrayList;
+class Owner{
+    @JsonProperty("name")
+    private String owner_name;
+    @JsonProperty("avatar_url")
+    private String avatar_url;
+    @JsonProperty("web_url")
+    private String profile_url;
+
+    public String getOwner_name() {
+        return owner_name;
+    }
+
+    public void setOwner_name(String owner_name) {
+        this.owner_name = owner_name;
+    }
+
+    public String getAvatar_url() {
+        return avatar_url;
+    }
+
+    public void setAvatar_url(String avatar_url) {
+        this.avatar_url = avatar_url;
+    }
+
+    public String getProfile_url() {
+        return profile_url;
+    }
+
+    public void setProfile_url(String profile_url) {
+        this.profile_url = profile_url;
+    }
+}
+
 
 public class GitlabRepoDto {
 
@@ -24,6 +56,9 @@ public class GitlabRepoDto {
 
     @JsonProperty("last_activity_at")
     private String updated_at;
+
+    @JsonProperty("namespace")
+    private Owner owner;
 
     public String getPlatform() {
         return platform;
@@ -79,5 +114,26 @@ public class GitlabRepoDto {
 
     public void setUpdated_at(String updated_at) {
         this.updated_at = updated_at;
+    }
+
+    public Owner getOwner() {
+        return owner;
+    }
+
+    public void setOwner(Owner owner) {
+        this.owner = owner;
+    }
+
+    public String getOwner_name() {
+        return this.owner.getOwner_name();
+    }
+
+    public String getAvatar_url() {
+        return this.owner.getAvatar_url();
+    }
+
+
+    public String getProfile_url() {
+        return this.owner.getProfile_url();
     }
 }

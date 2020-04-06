@@ -6,9 +6,6 @@ public class BitbucketRepoDto {
 
     private String platform = "bitbucket";
 
-    @JsonProperty("web_url")
-    private String web_url;
-
     @JsonProperty("full_name")
     private String full_name;
 
@@ -27,20 +24,15 @@ public class BitbucketRepoDto {
     @JsonProperty("updated_on")
     private String updated_at;
 
+    @JsonProperty("owner")
+    private BitbucketOwner owner;
+
     public String getPlatform() {
         return platform;
     }
 
     public void setPlatform(String platform) {
         this.platform = platform;
-    }
-
-    public String getWeb_url() {
-        return web_url;
-    }
-
-    public void setWeb_url(String web_url) {
-        this.web_url = web_url;
     }
 
     public String getFull_name() {
@@ -89,5 +81,13 @@ public class BitbucketRepoDto {
 
     public void setUpdated_at(String updated_at) {
         this.updated_at = updated_at;
+    }
+
+    public BitbucketOwner getOwner() {
+        return owner;
+    }
+
+    public void setOwner(BitbucketOwner owner) {
+        this.owner = owner;
     }
 }

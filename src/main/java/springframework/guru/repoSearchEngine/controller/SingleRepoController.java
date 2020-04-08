@@ -13,6 +13,7 @@ import javax.validation.Valid;
 import javax.validation.constraints.Pattern;
 
 @Validated
+@CrossOrigin("*")
 @RestController
 @RequestMapping("/api/v1/detail")
 public class SingleRepoController {

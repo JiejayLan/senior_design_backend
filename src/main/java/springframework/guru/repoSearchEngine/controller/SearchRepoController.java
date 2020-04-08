@@ -14,6 +14,7 @@ import javax.validation.constraints.Pattern;
 import java.util.ArrayList;
 
 @Validated
+@CrossOrigin("*")
 @RestController
 @RequestMapping("/api/v1/search")
 public class SearchRepoController {

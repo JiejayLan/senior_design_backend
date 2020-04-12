@@ -64,7 +64,6 @@ public class RepoDetailServiceImpl implements RepoDetailService{
     public ArrayList<String>  acquireRepoCommits(String platform, String full_name){
         try{
             ArrayList<String> commits_total = new ArrayList<>();
-            int MAX_COMMITS_PER_PAGE = platform.equals("gitlab")? 20 : 30;
             int current_page = 1;
 
             while(true){
@@ -76,10 +75,7 @@ public class RepoDetailServiceImpl implements RepoDetailService{
                 else if(platform.equals("github"))
                     commits_single_page = githubAPIService.getRepoCommits(full_name,current_page++);
                 commits_total.addAll(commits_single_page);
-
-                if(commits_total.size() > 300 - MAX_COMMITS_PER_PAGE)
-                    break;
-                if(commits_single_page.size() < MAX_COMMITS_PER_PAGE)
+                if(!checkCommits(platform, commits_total, commits_single_page))
                     break;
             }
             return commits_total;
@@ -87,5 +83,22 @@ public class RepoDetailServiceImpl implements RepoDetailService{
         catch(Exception ex){
             throw ex;
         }
+    }
+
+    @Override
+    public Boolean checkCommits(String platform, ArrayList<String> commits_total,
+                                ArrayList<String> commits_single_page){
+        try{
+            int MAX_COMMITS_PER_PAGE = platform.equals("gitlab")? 20 : 30;
+            if(commits_total.size() > 300 - MAX_COMMITS_PER_PAGE)
+                return false;
+            else if(commits_single_page.size() < MAX_COMMITS_PER_PAGE)
+                return false;
+            else
+                return true;
+        } catch(Exception ex){
+            throw ex;
+        }
+
     }
 }

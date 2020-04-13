@@ -42,7 +42,6 @@ public class RepoDetailServiceImpl implements RepoDetailService{
         }
     }
 
-
     @Override
     public RepoDetail acquireRepoMeta(String platform, String full_name) {
         try{
@@ -99,7 +98,7 @@ public class RepoDetailServiceImpl implements RepoDetailService{
                                 ArrayList<String> commits_single_page){
         try{
             int MAX_COMMITS_PER_PAGE = platform.equals("gitlab")? 20 : 30;
-            if(commits_total.size() +  MAX_COMMITS_PER_PAGE > 180)
+            if(commits_total.size() +  MAX_COMMITS_PER_PAGE > 300)
                 return false;
             else if(commits_single_page.size() < MAX_COMMITS_PER_PAGE)
                 return false;

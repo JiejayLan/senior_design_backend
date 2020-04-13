@@ -32,7 +32,7 @@ public class RepoDetail {
 
     private String profile_url;
 
-    private ArrayList<String> commits;
+    private ArrayList<CommitCount> commits;
 
     public RepoDetail() {
     }
@@ -185,11 +185,11 @@ public class RepoDetail {
         this.profile_url = profile_url;
     }
 
-    public ArrayList<String> getCommits() {
+    public ArrayList<CommitCount> getCommits() {
         return commits;
     }
 
-    public void setCommits(ArrayList<String> commits) {
+    public void setCommits(ArrayList<CommitCount> commits) {
         this.commits = commits;
     }
 }

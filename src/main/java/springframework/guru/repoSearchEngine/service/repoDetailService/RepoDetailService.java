@@ -14,8 +14,8 @@ public interface RepoDetailService {
     HashMap<String, Integer> countCommitsDaily(ArrayList<String> commits_total);
     Boolean checkCommitsSize(String platform, ArrayList<String> commits_total,
                             ArrayList<String> commits_single_page);
-    void checkCommitsDate(List<String> commits_single_page);
-    Boolean checkDateWithinTwoYear(String date);
+    void sortBitbucketCommits(ArrayList<String> commits_total);
+
 }
 
 

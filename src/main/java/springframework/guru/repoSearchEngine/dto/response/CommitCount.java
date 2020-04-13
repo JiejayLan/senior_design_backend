@@ -1,20 +1,20 @@
 package springframework.guru.repoSearchEngine.dto.response;
 
 public class CommitCount {
-    String startDay;
+    String endOfWeek;
     int numCommits;
 
-    public CommitCount(String startDay, int numCommits) {
-        this.startDay = startDay;
+    public CommitCount(String endOfWeek, int numCommits) {
+        this.endOfWeek = endOfWeek;
         this.numCommits = numCommits;
     }
 
-    public String getStartDay() {
-        return startDay;
+    public String getEndOfWeek() {
+        return endOfWeek;
     }
 
-    public void setStartDay(String startDay) {
-        this.startDay = startDay;
+    public void setEndOfWeek(String endOfWeek) {
+        this.endOfWeek = endOfWeek;
     }
 
     public int getNumCommits() {

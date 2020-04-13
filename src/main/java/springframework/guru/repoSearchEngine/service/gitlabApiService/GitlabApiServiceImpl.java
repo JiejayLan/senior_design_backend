@@ -75,8 +75,11 @@ public class GitlabApiServiceImpl implements GitlabApiService {
     public ArrayList<String> extractDateString(GitlabCommit[] gitlabCommits){
         try{
             ArrayList<String> dates = new ArrayList<>();
-            for(GitlabCommit commit : gitlabCommits)
-                dates.add(commit.getDate());
+            for(GitlabCommit commit : gitlabCommits){
+                String dateStr = commit.getDate();
+                dates.add(dateStr.substring(0,10));
+            }
+
             return dates;
         }
         catch(Exception ex) {

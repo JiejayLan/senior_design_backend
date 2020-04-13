@@ -1,6 +1,8 @@
 package springframework.guru.repoSearchEngine.service.repoDetailService;
 
+import org.joda.time.DateTime;
 import org.springframework.stereotype.Service;
+import springframework.guru.repoSearchEngine.dto.response.CommitCount;
 import springframework.guru.repoSearchEngine.dto.response.RepoDetail;
 import springframework.guru.repoSearchEngine.dto.bitbucket.BitbucketRepoDto;
 import springframework.guru.repoSearchEngine.dto.github.GithubItem;
@@ -8,11 +10,7 @@ import springframework.guru.repoSearchEngine.dto.gitlab.GitlabRepoDto;
 import springframework.guru.repoSearchEngine.service.bitbucketApiService.BitbucketApiService;
 import springframework.guru.repoSearchEngine.service.githubApiService.GithubApiService;
 import springframework.guru.repoSearchEngine.service.gitlabApiService.GitlabApiService;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Locale;
+import java.util.*;
 import java.util.concurrent.TimeUnit;
 
 @Service
@@ -33,13 +31,56 @@ public class RepoDetailServiceImpl implements RepoDetailService{
     public RepoDetail acquireRepoDetail(String platform, String full_name){
         try{
             RepoDetail repoInfo = acquireRepoMeta(platform, full_name);
-            ArrayList<String> commits = acquireRepoCommits(platform, full_name);
-            repoInfo.setCommits(commits);
+            ArrayList<String> commits_total = requestRepoCommits(platform, full_name);
+            repoInfo.setCommits(commits_total);
+            countCommitsWeekly(commits_total);
             return repoInfo;
         }
         catch(Exception ex){
             throw ex;
         }
+    }
+
+    @Override
+    public HashMap<String, Integer> countCommitsDaily(ArrayList<String> commits_total) {
+        HashMap<String, Integer> commit_counter_daily = new HashMap<>();
+
+        for(String date:commits_total){
+            if(commit_counter_daily.containsKey(date)){
+                int tempCount = commit_counter_daily.get(date);
+                commit_counter_daily.replace(date, ++tempCount);
+
+            }
+            else
+               commit_counter_daily.put(date, 1);
+        }
+        return commit_counter_daily;
+    }
+
+    @Override
+    public ArrayList<CommitCount> countCommitsWeekly(ArrayList<String> commits_total){
+        if(commits_total.isEmpty())
+            return null;
+
+        HashMap<String, Integer> commit_counter_daily = countCommitsDaily(commits_total);
+        ArrayList<CommitCount> commits_count_weekly = new ArrayList<>();
+        DateTime start_date = new DateTime( commits_total.get(commits_total.size()-1));
+        DateTime last_date_week = new DateTime(commits_total.get(0));
+        DateTime tempDate = last_date_week;
+        int sum =0 ;
+        while(last_date_week.compareTo(start_date) == 1){
+            int count = 0;
+            for(int i = 0; i < 7; i++){
+                String dateStr = tempDate.toString().substring(0, 10);
+                if(commit_counter_daily.containsKey(dateStr))
+                    count += commit_counter_daily.get(dateStr);
+                tempDate = tempDate.minusDays(1);
+            }
+            commits_count_weekly.add(new CommitCount(last_date_week.toString(), count));
+            sum += count;
+            last_date_week = tempDate;
+        }
+        return commits_count_weekly;
     }
 
     @Override
@@ -66,7 +107,7 @@ public class RepoDetailServiceImpl implements RepoDetailService{
     }
 
     @Override
-    public ArrayList<String>  acquireRepoCommits(String platform, String full_name) {
+    public ArrayList<String>  requestRepoCommits(String platform, String full_name) {
         try{
             ArrayList<String> commits_total = new ArrayList<>();
             int current_page = 1;
@@ -111,18 +152,18 @@ public class RepoDetailServiceImpl implements RepoDetailService{
     @Override
     public void checkCommitsDate(List<String> commits_single_page){
         String last_date = commits_single_page.get(0);
-        if(!checkDate(last_date)){
+        if(!checkDateWithinTwoYear(last_date)){
             commits_single_page.clear();
             return;
         }
 
         String first_date = commits_single_page.get(commits_single_page.size() - 1);
-        if(checkDate(first_date))
+        if(checkDateWithinTwoYear(first_date))
             return;
 
         for (int i = 0; i < commits_single_page.size(); i++) {
             String tempDate = commits_single_page.get(i);
-            if(checkDate(tempDate))
+            if(checkDateWithinTwoYear(tempDate))
                 continue;
             else {
                 List<String> temp_commits =  commits_single_page.subList(i, commits_single_page.size());
@@ -133,18 +174,15 @@ public class RepoDetailServiceImpl implements RepoDetailService{
     }
 
     @Override
-    public Boolean checkDate(String date) {
+    public Boolean checkDateWithinTwoYear(String date) {
         try{
-            SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
-            Date startDate = formatter.parse(date.substring(0,10));
-            Date endDate = new Date();
-            long diffIn_millies = Math.abs(endDate.getTime() - startDate.getTime());
-            long diff_dates = TimeUnit.DAYS.convert(diffIn_millies, TimeUnit.MILLISECONDS);
-            if (diff_dates > 365 * 2)
+            DateTime check_Date = new DateTime(date);
+            DateTime current_date = new DateTime();
+            long diff_ms = Math.abs(current_date.getMillis() - check_Date.getMillis());
+            long diff_dates = TimeUnit.DAYS.convert(diff_ms, TimeUnit.MILLISECONDS);
+            if (diff_dates> 365 * 2)
                 return false;
             return true;
-        } catch(java.text.ParseException ex){
-            return false;
         } catch(Exception ex){
             throw ex;
         }

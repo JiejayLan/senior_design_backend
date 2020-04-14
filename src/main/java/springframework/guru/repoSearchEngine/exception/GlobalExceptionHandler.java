@@ -32,6 +32,16 @@ public class GlobalExceptionHandler {
         return responseError;
     }
 
+    @ExceptionHandler(InternalException.class)
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    @ResponseBody
+    public ErrorMsg handleError(InternalException ex) {
+        logger.error("Error: - Status {}, Body {}", ex.getMessage(),
+                ex.getMessage());
+        ErrorMsg responseError = new ErrorMsg(ex, ex.getStatus_code());
+        return responseError;
+    }
+
     @ExceptionHandler(Exception.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     @ResponseBody

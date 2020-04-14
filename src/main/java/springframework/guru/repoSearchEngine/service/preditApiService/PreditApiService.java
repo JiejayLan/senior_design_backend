@@ -6,6 +6,6 @@ import java.util.ArrayList;
 
 public interface PreditApiService {
     void predictCommits(ArrayList<CommitCount> commits_count_weekly);
-
     String prepareRequestBody(ArrayList<CommitCount> commits_count_weekly);
+    String getFutureWeek(ArrayList<CommitCount> commits_count_weekly);
 }

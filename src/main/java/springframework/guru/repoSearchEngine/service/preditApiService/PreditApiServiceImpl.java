@@ -1,5 +1,6 @@
 package springframework.guru.repoSearchEngine.service.preditApiService;
 
+import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -32,6 +33,9 @@ public class PreditApiServiceImpl implements PreditApiService{
             String requestJson = prepareRequestBody(commits_count_weekly);
             HttpEntity<String> entity = new HttpEntity<>(requestJson,headers);
             String predit_commit = restTemplate.postForObject(COMMITS_PREDITION_API_URL,entity,String.class);
+            String future_week = getFutureWeek(commits_count_weekly);
+            CommitCount commitCount = new CommitCount(future_week,1);
+            commits_count_weekly.add(0, commitCount);
         }
         catch (Exception ex){
             throw ex;
@@ -47,5 +51,13 @@ public class PreditApiServiceImpl implements PreditApiService{
         String requestJson = String.format("{\"commits\":%s}", Arrays.toString(commit_count));
 
         return requestJson;
+    }
+
+    @Override
+    public String getFutureWeek(ArrayList<CommitCount> commits_count_weekly){
+        String last_week_str = commits_count_weekly.get(0).getEndOfWeek();
+        DateTime last_week = new DateTime(last_week_str);
+        last_week = last_week.plusWeeks(1);
+        return last_week.toString().substring(0,10);
     }
 }

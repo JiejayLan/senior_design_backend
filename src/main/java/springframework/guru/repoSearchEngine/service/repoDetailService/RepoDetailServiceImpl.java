@@ -10,6 +10,8 @@ import springframework.guru.repoSearchEngine.dto.gitlab.GitlabRepoDto;
 import springframework.guru.repoSearchEngine.service.bitbucketApiService.BitbucketApiService;
 import springframework.guru.repoSearchEngine.service.githubApiService.GithubApiService;
 import springframework.guru.repoSearchEngine.service.gitlabApiService.GitlabApiService;
+import springframework.guru.repoSearchEngine.service.preditApiService.PreditApiService;
+
 import java.util.*;
 
 @Service
@@ -17,13 +19,16 @@ public class RepoDetailServiceImpl implements RepoDetailService{
     private GitlabApiService gitlabApiService;
     private GithubApiService githubAPIService;
     private BitbucketApiService bitbucketApiService;
+    private PreditApiService preditApiService;
 
     public RepoDetailServiceImpl(GitlabApiService gitlabApiService,
                                  GithubApiService githubAPIService,
-                                 BitbucketApiService bitbucketApiService) {
+                                 BitbucketApiService bitbucketApiService,
+                                 PreditApiService preditApiService) {
         this.gitlabApiService = gitlabApiService;
         this.githubAPIService = githubAPIService;
         this.bitbucketApiService = bitbucketApiService;
+        this.preditApiService = preditApiService;
     }
 
     @Override
@@ -33,8 +38,8 @@ public class RepoDetailServiceImpl implements RepoDetailService{
             ArrayList<String> commits_total = requestRepoCommits(platform, full_name);
 
             ArrayList<CommitCount> commits_count_weekly = countCommitsWeekly(commits_total);
+            preditApiService.predictCommits(commits_count_weekly);
             repoInfo.setCommits(commits_count_weekly);
-
             return repoInfo;
         }
         catch(Exception ex){

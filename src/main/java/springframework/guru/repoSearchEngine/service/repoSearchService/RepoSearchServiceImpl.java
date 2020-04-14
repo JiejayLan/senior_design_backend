@@ -38,8 +38,8 @@ public class RepoSearchServiceImpl implements RepoSearchService {
         try{
             ArrayList<RepoSearchItem> repos = new ArrayList<>();
             searchGithubRepo(repos, searchKey);
-            //searchGitlabRepo(repos, searchKey);
-            //searchBitbucketRepo(repos, searchKey);
+            searchGitlabRepo(repos, searchKey);
+            searchBitbucketRepo(repos, searchKey);
             return repos;
         }
         catch (Exception ex){

@@ -40,6 +40,7 @@ public class RepoSearchItem {
     public RepoSearchItem(GitlabRepoDto gitlabRepoDto) {
         this.platform = "gitlab";
         this.full_name = gitlabRepoDto.getFull_name();
+        this.star_count = gitlabRepoDto.getStar_count();
         this.description = gitlabRepoDto.getDescription();
         this.updated_at = gitlabRepoDto.getUpdated_at().substring(0,10);
     }

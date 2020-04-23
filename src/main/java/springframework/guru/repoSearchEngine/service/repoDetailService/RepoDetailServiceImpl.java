@@ -38,7 +38,8 @@ public class RepoDetailServiceImpl implements RepoDetailService{
             ArrayList<String> commits_total = requestRepoCommits(platform, full_name);
 
             ArrayList<CommitCount> commits_count_weekly = countCommitsWeekly(commits_total);
-            preditApiService.predictCommits(commits_count_weekly);
+            if(commits_count_weekly.size()>=8)
+                preditApiService.predictCommits(commits_count_weekly);
             repoInfo.setCommits(commits_count_weekly);
             return repoInfo;
         }
@@ -125,7 +126,7 @@ public class RepoDetailServiceImpl implements RepoDetailService{
             ArrayList<CommitCount> commits_count_weekly = new ArrayList<>();
 
             DateTime start_date = new DateTime( commits_total.get(commits_total.size()-1));
-            DateTime last_date_week = new DateTime(commits_total.get(0));
+            DateTime last_date_week = new DateTime();
             DateTime tempDate = last_date_week;
             DateTime date_before_year = new DateTime();
             date_before_year = date_before_year.minusYears(1);

@@ -32,7 +32,7 @@ public class RepoDetail {
 
     private String profile_url;
 
-    private ArrayList<String> commits;
+    private ArrayList<CommitCount> commits;
 
     public RepoDetail() {
     }
@@ -77,7 +77,7 @@ public class RepoDetail {
         this.created_at = gitlabRepoDto.getCreated_at().substring(0,10);
         this.updated_at = gitlabRepoDto.getUpdated_at().substring(0,10);
         this.owner_name = gitlabRepoDto.getOwner_name();
-        this.avatar_url = "https://assets.gitlab-static.net/"+gitlabRepoDto.getAvatar_url();
+        this.avatar_url = gitlabRepoDto.getAvatar_url();
         this.profile_url = gitlabRepoDto.getProfile_url();
     }
 
@@ -185,11 +185,11 @@ public class RepoDetail {
         this.profile_url = profile_url;
     }
 
-    public ArrayList<String> getCommits() {
+    public ArrayList<CommitCount> getCommits() {
         return commits;
     }
 
-    public void setCommits(ArrayList<String> commits) {
+    public void setCommits(ArrayList<CommitCount> commits) {
         this.commits = commits;
     }
 }

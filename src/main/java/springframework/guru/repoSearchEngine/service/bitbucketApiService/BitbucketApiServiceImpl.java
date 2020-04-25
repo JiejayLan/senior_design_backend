@@ -49,7 +49,7 @@ public class BitbucketApiServiceImpl implements BitbucketApiService {
             ArrayList<String> dates = new ArrayList<>();
             for(int i = 0; i < bitbucketCommits.length; i++){
                 String date_str = bitbucketCommits[i].getDate();
-                dates.add(date_str);
+                dates.add(date_str.substring(0,10));
             }
 
             return dates;

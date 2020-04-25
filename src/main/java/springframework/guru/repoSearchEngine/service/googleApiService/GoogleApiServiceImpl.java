@@ -42,6 +42,8 @@ public class GoogleApiServiceImpl implements GoogleApiService{
             return repo_fullnames;
         }
         catch (Exception ex){
+            if(ex.getMessage().equals("403 Forbidden"))
+                throw new InternalException(HttpStatus.INTERNAL_SERVER_ERROR,"Google API Limitation Error");
             throw ex;
         }
     }

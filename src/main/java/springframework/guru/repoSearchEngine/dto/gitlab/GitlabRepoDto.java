@@ -1,13 +1,15 @@
 package springframework.guru.repoSearchEngine.dto.gitlab;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-class Owner{
+class NameSpace{
     @JsonProperty("name")
     private String owner_name;
-    @JsonProperty("avatar_url")
-    private String avatar_url;
+
     @JsonProperty("web_url")
     private String profile_url;
+
+    @JsonProperty("avatar_url")
+    private String avatar__url;
 
     public String getOwner_name() {
         return owner_name;
@@ -17,14 +19,6 @@ class Owner{
         this.owner_name = owner_name;
     }
 
-    public String getAvatar_url() {
-        return avatar_url;
-    }
-
-    public void setAvatar_url(String avatar_url) {
-        this.avatar_url = avatar_url;
-    }
-
     public String getProfile_url() {
         return profile_url;
     }
@@ -32,8 +26,15 @@ class Owner{
     public void setProfile_url(String profile_url) {
         this.profile_url = profile_url;
     }
-}
 
+    public String getAvatar__url() {
+        return avatar__url;
+    }
+
+    public void setAvatar__url(String avatar__url) {
+        this.avatar__url = avatar__url;
+    }
+}
 
 public class GitlabRepoDto {
 
@@ -58,7 +59,8 @@ public class GitlabRepoDto {
     private String updated_at;
 
     @JsonProperty("namespace")
-    private Owner owner;
+    private NameSpace namspace;
+
 
     public String getPlatform() {
         return platform;
@@ -116,24 +118,24 @@ public class GitlabRepoDto {
         this.updated_at = updated_at;
     }
 
-    public Owner getOwner() {
-        return owner;
-    }
-
-    public void setOwner(Owner owner) {
-        this.owner = owner;
-    }
-
     public String getOwner_name() {
-        return this.owner.getOwner_name();
+        return this.namspace.getOwner_name();
     }
 
-    public String getAvatar_url() {
-        return this.owner.getAvatar_url();
+    public NameSpace getNamspace() {
+        return namspace;
     }
 
-
-    public String getProfile_url() {
-        return this.owner.getProfile_url();
+    public void setNamspace(NameSpace namspace) {
+        this.namspace = namspace;
     }
+
+    public String getAvatar_url(){
+        return this.getNamspace().getAvatar__url();
+    }
+
+    public String getProfile_url(){
+        return this.getNamspace().getProfile_url();
+    }
+
 }

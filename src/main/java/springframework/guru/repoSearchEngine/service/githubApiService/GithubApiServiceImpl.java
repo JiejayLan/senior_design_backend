@@ -81,8 +81,10 @@ public class GithubApiServiceImpl implements GithubApiService {
     public ArrayList<String> extractDateString(GithubCommit[] githubCommits){
         try{
             ArrayList<String> dates = new ArrayList<>();
-            for(GithubCommit commit : githubCommits)
-                dates.add(commit.getCommit().getAuthor().getDate());
+            for(GithubCommit commit : githubCommits) {
+                String dateStr = commit.getCommit().getCommitter().getDate();
+                dates.add(dateStr.substring(0,10));
+            }
             return dates;
         }
         catch(Exception ex){

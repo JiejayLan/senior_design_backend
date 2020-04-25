@@ -2,11 +2,11 @@ package springframework.guru.repoSearchEngine.dto.github.gitlubCommit;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class Author {
+public class Committer {
     @JsonProperty("date")
     private String date;
 
-    public Author() {
+    public Committer() {
 
     }
 

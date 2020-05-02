@@ -67,7 +67,7 @@ public class RepoSearchServiceImpl implements RepoSearchService {
         try{
             HashSet<String>  all_fullnames = new HashSet<>();
             final int MAX_REPO_NUM = repos.size() + 10;
-            for(int page = 0; page <= MAX_GOOGLE_PAGE; page++){
+            for(int page = 0; page < MAX_GOOGLE_PAGE; page++){
                 if(repos.size() >= MAX_REPO_NUM)
                     return;
                 Set<String> repo_fullnames = googleApiService.searchRepoLinks(all_fullnames,"gitlab", searchKey, page*10+1);
@@ -101,7 +101,7 @@ public class RepoSearchServiceImpl implements RepoSearchService {
         try{
             final int MAX_REPO_NUM = repos.size() + 10;
             Set<String>  all_fullnames = new HashSet<>();
-            for(int page = 0; page <= MAX_GOOGLE_PAGE; page++){
+            for(int page = 0; page < MAX_GOOGLE_PAGE; page++){
                 if(repos.size() >= MAX_REPO_NUM)
                     return;
                 Set<String> repo_fullnames = googleApiService.searchRepoLinks(

@@ -17,7 +17,7 @@ import java.util.Set;
 public class RepoSearchServiceImpl implements RepoSearchService {
 
     private final int REPO_SIZE = 10;
-    private final int MAX_GOOGLE_PAGE = 5;
+    private final int MAX_GOOGLE_PAGE = 1;
     private GitlabApiService gitlabApiService;
     private GithubApiService githubAPIService;
     private BitbucketApiService bitbucketApiService;

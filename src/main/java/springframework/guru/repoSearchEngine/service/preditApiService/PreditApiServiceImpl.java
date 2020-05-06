@@ -1,6 +1,7 @@
 package springframework.guru.repoSearchEngine.service.preditApiService;
 
 import org.joda.time.DateTime;
+import org.joda.time.DateTimeZone;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.springframework.beans.factory.annotation.Value;
@@ -62,7 +63,7 @@ public class PreditApiServiceImpl implements PreditApiService{
     @Override
     public void appendFutureCommits(ArrayList<CommitCount> commits_count_weekly, JSONArray predit_commits){
         try{
-            DateTime temp_date = new DateTime();
+            DateTime temp_date = new DateTime(DateTimeZone.UTC);
             temp_date = temp_date.plusWeeks(1);
             for (int i = 0; i < predit_commits.length(); i++) {
                 int commit = predit_commits.getInt(i);

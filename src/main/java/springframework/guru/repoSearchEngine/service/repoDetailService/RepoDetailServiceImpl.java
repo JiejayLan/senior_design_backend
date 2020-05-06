@@ -1,6 +1,7 @@
 package springframework.guru.repoSearchEngine.service.repoDetailService;
 
 import org.joda.time.DateTime;
+import org.joda.time.DateTimeZone;
 import org.springframework.stereotype.Service;
 import springframework.guru.repoSearchEngine.dto.response.CommitCount;
 import springframework.guru.repoSearchEngine.dto.response.RepoDetail;
@@ -126,9 +127,9 @@ public class RepoDetailServiceImpl implements RepoDetailService{
             ArrayList<CommitCount> commits_count_weekly = new ArrayList<>();
 
             DateTime start_date = new DateTime( commits_total.get(commits_total.size()-1));
-            DateTime last_date_week = new DateTime();
+            DateTime last_date_week = new DateTime(DateTimeZone.UTC);
             DateTime tempDate = last_date_week;
-            DateTime date_before_year = new DateTime();
+            DateTime date_before_year = new DateTime(DateTimeZone.UTC);
             date_before_year = date_before_year.minusYears(1);
 
             while(last_date_week.compareTo(start_date) == 1 && last_date_week.compareTo(date_before_year) == 1){

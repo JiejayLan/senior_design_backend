@@ -46,7 +46,7 @@ public class GitlabRepoDto {
     @JsonProperty("star_count")
     private int star_count;
 
-    @JsonProperty("fork_count")
+    @JsonProperty("forks_count")
     private int fork_count;
 
     @JsonProperty("description")

@@ -26,7 +26,7 @@ public class BitbucketApiServiceImpl implements BitbucketApiService {
             return bitbucketRepoDto;
         }
         catch (Exception ex) {
-            throw new InternalException(HttpStatus.INTERNAL_SERVER_ERROR, "BITBUCKET API INTERNAL_SERVER_ERROR");
+            return null;
         }
     }
 

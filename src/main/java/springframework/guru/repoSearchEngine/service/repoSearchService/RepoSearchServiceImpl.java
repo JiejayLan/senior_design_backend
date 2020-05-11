@@ -86,6 +86,8 @@ public class RepoSearchServiceImpl implements RepoSearchService {
         try{
             for(String fullname : repo_fullnames){
                 GitlabRepoDto gitlabRepoDto = gitlabApiService.acquireSingleRepo(fullname);
+                if(gitlabRepoDto == null)
+                    continue;
                 repos.add( new RepoSearchItem(gitlabRepoDto));
                 if(repos.size() >= MAX_REPO_NUM)
                     break;
@@ -127,6 +129,8 @@ public class RepoSearchServiceImpl implements RepoSearchService {
         try{
             for(String repo_fullname : repo_fullnames){
                 BitbucketRepoDto bitbucketRepoDto = bitbucketApiService.acquireSingleRepo(repo_fullname);
+                if(bitbucketRepoDto == null)
+                    continue;
                 repos.add( new RepoSearchItem(bitbucketRepoDto));
                 if(repos.size() >= MAX_REPO_NUM)
                     break;

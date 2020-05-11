@@ -48,7 +48,7 @@ public class GitlabApiServiceImpl implements GitlabApiService {
             return gitlabRepoDto;
         }
         catch (Exception ex) {
-            throw new InternalException(HttpStatus.INTERNAL_SERVER_ERROR, "GITLAB API INTERNAL_SERVER_ERROR");
+            return null;
         }
     }
     @Override

@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponents;
 import org.springframework.web.util.UriComponentsBuilder;
-import springframework.guru.repoSearchEngine.dto.github.gitlubCommit.GithubCommit;
 import springframework.guru.repoSearchEngine.dto.gitlab.GitlabCommit;
 import springframework.guru.repoSearchEngine.dto.gitlab.GitlabRepoDto;
 import springframework.guru.repoSearchEngine.exception.InternalException;

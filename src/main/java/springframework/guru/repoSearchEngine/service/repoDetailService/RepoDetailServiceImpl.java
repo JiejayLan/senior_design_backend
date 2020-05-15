@@ -12,7 +12,6 @@ import springframework.guru.repoSearchEngine.service.bitbucketApiService.Bitbuck
 import springframework.guru.repoSearchEngine.service.githubApiService.GithubApiService;
 import springframework.guru.repoSearchEngine.service.gitlabApiService.GitlabApiService;
 import springframework.guru.repoSearchEngine.service.preditApiService.PreditApiService;
-
 import java.util.*;
 
 @Service
@@ -21,7 +20,7 @@ public class RepoDetailServiceImpl implements RepoDetailService{
     private GithubApiService githubAPIService;
     private BitbucketApiService bitbucketApiService;
     private PreditApiService preditApiService;
-
+    private final int MAX_COMMITS_PRE_REPO = 500;
     public RepoDetailServiceImpl(GitlabApiService gitlabApiService,
                                  GithubApiService githubAPIService,
                                  BitbucketApiService bitbucketApiService,
@@ -105,7 +104,7 @@ public class RepoDetailServiceImpl implements RepoDetailService{
                                 ArrayList<String> commits_single_page){
         try{
             int MAX_COMMITS_PER_PAGE = platform.equals("gitlab")? 20 : 30;
-            if(commits_total.size() +  MAX_COMMITS_PER_PAGE > 300)
+            if(commits_total.size() +  MAX_COMMITS_PER_PAGE > MAX_COMMITS_PRE_REPO)
                 return false;
             else if(commits_single_page.size() < MAX_COMMITS_PER_PAGE)
                 return false;
